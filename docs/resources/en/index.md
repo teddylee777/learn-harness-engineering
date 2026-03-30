@@ -34,13 +34,13 @@ Then add:
 If you want the fuller OpenAI-style repository structure from the
 "Harness engineering" post, use the advanced pack:
 
-- [`openai-advanced/README.md`](./openai-advanced/README.md)
+- [`openai-advanced/index.md`](./openai-advanced/index.md)
 
 ## Library Structure
 
-- [`templates/`](./templates/README.md): templates to copy into a real repo
-- [`reference/`](./reference/README.md): method notes, startup flow, and failure-mode maps
-- [`openai-advanced/`](./openai-advanced/README.md): advanced repo skeleton,
+- [`templates/`](./templates/index.md): templates to copy into a real repo
+- [`reference/`](./reference/index.md): method notes, startup flow, and failure-mode maps
+- [`openai-advanced/`](./openai-advanced/index.md): advanced repo skeleton,
   system-of-record docs, and agent-first governance templates
 
 ## Recommended Minimal Pack
@@ -54,5 +54,5 @@ Those four files are enough to make most agent workflows noticeably more stable.
 
 When the repo grows into a longer-running system with multiple domains, active
 plans, quality scoring, and reliability policies, move up to the
-[`openai-advanced/`](./openai-advanced/README.md) pack instead of stretching the
+[`openai-advanced/`](./openai-advanced/index.md) pack instead of stretching the
 minimal pack too far.

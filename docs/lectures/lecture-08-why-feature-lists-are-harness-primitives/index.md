@@ -47,7 +47,7 @@ criteria.
 
 ## Examples and Artifacts
 
-- See [`code/`](./code/README.md) for pass-state gating and evaluator-loop
+- See [`code/`](./code/index.md) for pass-state gating and evaluator-loop
   examples.
 - A useful feature record includes identifier, behavior statement, verification
   method, status, and evidence reference.

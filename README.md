@@ -69,44 +69,44 @@ When your project gets more complex, add these:
 - [`clean-state-checklist.md`](./docs/resources/en/templates/clean-state-checklist.md) — checklist to run before ending each session
 - [`evaluator-rubric.md`](./docs/resources/en/templates/evaluator-rubric.md) — scorecard for reviewing agent output quality
 
-Each file has detailed usage instructions in the [English template guide](./docs/resources/en/templates/README.md). Chinese versions are available in [中文模板指南](./docs/resources/zh/templates/README.md).
+Each file has detailed usage instructions in the [English template guide](./docs/resources/en/templates/index.md). Chinese versions are available in [中文模板指南](./docs/resources/zh/templates/index.md).
 
 If you want the fuller OpenAI-style repository layout from the
 "Harness engineering" post, use the advanced pack in
-[`docs/resources/en/openai-advanced/`](./docs/resources/en/openai-advanced/README.md) or
-[`docs/resources/zh/openai-advanced/`](./docs/resources/zh/openai-advanced/README.md).
+[`docs/resources/en/openai-advanced/`](./docs/resources/en/openai-advanced/index.md) or
+[`docs/resources/zh/openai-advanced/`](./docs/resources/zh/openai-advanced/index.md).
 
 ## Syllabus
 
 ### Lectures
 
-- [Lecture 01. Strong models don't mean reliable execution](./lectures/lecture-01-why-capable-agents-still-fail/README.md)
-- [Lecture 02. What harness actually means](./lectures/lecture-02-what-a-harness-actually-is/README.md)
-- [Lecture 03. Make the repository your single source of truth](./lectures/lecture-03-why-the-repository-must-become-the-system-of-record/README.md)
-- [Lecture 04. Split instructions across files, not one giant file](./lectures/lecture-04-why-one-giant-instruction-file-fails/README.md)
-- [Lecture 05. Keep context alive across sessions](./lectures/lecture-05-why-long-running-tasks-lose-continuity/README.md)
-- [Lecture 06. Initialize before every agent session](./lectures/lecture-06-why-initialization-needs-its-own-phase/README.md)
-- [Lecture 07. Draw clear task boundaries for agents](./lectures/lecture-07-why-agents-overreach-and-under-finish/README.md)
-- [Lecture 08. Use feature lists to constrain what the agent does](./lectures/lecture-08-why-feature-lists-are-harness-primitives/README.md)
-- [Lecture 09. Stop agents from declaring victory early](./lectures/lecture-09-why-agents-declare-victory-too-early/README.md)
-- [Lecture 10. Only a full-pipeline run counts as real verification](./lectures/lecture-10-why-end-to-end-testing-changes-results/README.md)
-- [Lecture 11. Make the agent's runtime observable](./lectures/lecture-11-why-observability-belongs-inside-the-harness/README.md)
-- [Lecture 12. Clean handoff at the end of every session](./lectures/lecture-12-why-every-session-must-leave-a-clean-state/README.md)
+- [Lecture 01. Strong models don't mean reliable execution](./docs/lectures/lecture-01-why-capable-agents-still-fail/index.md)
+- [Lecture 02. What harness actually means](./docs/lectures/lecture-02-what-a-harness-actually-is/index.md)
+- [Lecture 03. Make the repository your single source of truth](./docs/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/index.md)
+- [Lecture 04. Split instructions across files, not one giant file](./docs/lectures/lecture-04-why-one-giant-instruction-file-fails/index.md)
+- [Lecture 05. Keep context alive across sessions](./docs/lectures/lecture-05-why-long-running-tasks-lose-continuity/index.md)
+- [Lecture 06. Initialize before every agent session](./docs/lectures/lecture-06-why-initialization-needs-its-own-phase/index.md)
+- [Lecture 07. Draw clear task boundaries for agents](./docs/lectures/lecture-07-why-agents-overreach-and-under-finish/index.md)
+- [Lecture 08. Use feature lists to constrain what the agent does](./docs/lectures/lecture-08-why-feature-lists-are-harness-primitives/index.md)
+- [Lecture 09. Stop agents from declaring victory early](./docs/lectures/lecture-09-why-agents-declare-victory-too-early/index.md)
+- [Lecture 10. Only a full-pipeline run counts as real verification](./docs/lectures/lecture-10-why-end-to-end-testing-changes-results/index.md)
+- [Lecture 11. Make the agent's runtime observable](./docs/lectures/lecture-11-why-observability-belongs-inside-the-harness/index.md)
+- [Lecture 12. Clean handoff at the end of every session](./docs/lectures/lecture-12-why-every-session-must-leave-a-clean-state/index.md)
 
 ### Projects
 
-- [Project 01. Prompt-only vs. rules-first: how much difference does it make](./projects/project-01-baseline-vs-minimal-harness/README.md)
-- [Project 02. Make the project readable and pick up where you left off](./projects/project-02-agent-readable-workspace/README.md)
-- [Project 03. Keep the agent working across session restarts](./projects/project-03-multi-session-continuity/README.md)
-- [Project 04. Use runtime feedback to correct agent behavior](./projects/project-04-incremental-indexing/README.md)
-- [Project 05. Make the agent verify its own work](./projects/project-05-grounded-qa-verification/README.md)
-- [Project 06. Build a complete agent harness](./projects/project-06-runtime-observability-and-debugging/README.md)
+- [Project 01. Prompt-only vs. rules-first: how much difference does it make](./docs/projects/project-01-baseline-vs-minimal-harness/index.md)
+- [Project 02. Make the project readable and pick up where you left off](./docs/projects/project-02-agent-readable-workspace/index.md)
+- [Project 03. Keep the agent working across session restarts](./docs/projects/project-03-multi-session-continuity/index.md)
+- [Project 04. Use runtime feedback to correct agent behavior](./docs/projects/project-04-incremental-indexing/index.md)
+- [Project 05. Make the agent verify its own work](./docs/projects/project-05-grounded-qa-verification/index.md)
+- [Project 06. Build a complete agent harness](./docs/projects/project-06-runtime-observability-and-debugging/index.md)
 
 ### Resource Library
 
-- [Resource Library Overview](./docs/resources/README.md)
-- [Chinese Resource Library](./docs/resources/zh/README.md)
-- [English Resource Library](./docs/resources/en/README.md)
+- [Resource Library Overview](./docs/resources/index.md)
+- [Chinese Resource Library](./docs/resources/zh/index.md)
+- [English Resource Library](./docs/resources/en/index.md)
 
 ## Recommended Learning Path
 
@@ -244,8 +244,8 @@ The final project also serves as the course's capstone harness.
 
 ## Repository Structure
 
-- `lectures/` - All lectures
-- `projects/` - All hands-on projects, including the capstone
+- `docs/lectures/` - All lectures
+- `docs/projects/` - All hands-on projects, including the capstone
 - `docs/resources/` - Bilingual reusable templates, checklists, and method references
 
 Each lecture includes a `code/` directory for small real-world examples and supporting artifacts.

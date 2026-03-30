@@ -17,7 +17,7 @@ now needs:
 
 ## Included Starter Layout
 
-The starter pack under [`repo-template/`](./repo-template/README.md) mirrors the
+The starter pack under [`repo-template/`](./repo-template/index.md) mirrors the
 structure below:
 
 ```text
@@ -52,7 +52,7 @@ docs/
 ## How To Adopt It
 
 1. Start from the minimal pack if your repo is still small.
-2. Copy the files in [`repo-template/`](./repo-template/README.md) into your
+2. Copy the files in [`repo-template/`](./repo-template/index.md) into your
    own repository once you need stronger structure.
 3. Keep `AGENTS.md` short. Treat it as a router into the deeper docs, not as an
    encyclopedia.
@@ -63,7 +63,7 @@ docs/
 
 ## SOP Library
 
-The [`sops/`](./sops/README.md) folder turns the article's diagrams into
+The [`sops/`](./sops/index.md) folder turns the article's diagrams into
 step-by-step operating procedures:
 
 - layered domain architecture setup

@@ -58,7 +58,7 @@ feedback loops — the agent sees the error and immediately knows the fix.
   that should be testable and enforceable.
 - [`code/review-feedback-to-rule.md`](./code/review-feedback-to-rule.md): example
   of converting recurring review feedback into automation.
-- [`code/README.md`](./code/README.md): index of lecture artifacts.
+- [`code/index.md`](./code/index.md): index of lecture artifacts.
 
 ## Readings
 

@@ -47,7 +47,7 @@ surfaces vary. Performance changes are often harness effects, not model changes.
 - Remove a component and ask whether agent access, action, state continuity, or
   error recovery changed.
 - If behavior changes materially, the removed component is harness-critical.
-- Lecture examples: [`code/README.md`](./code/README.md)
+- Lecture examples: [`code/index.md`](./code/index.md)
 - Typical artifacts to audit:
 - `AGENTS.md` or equivalent instruction entrypoint.
 - Setup and verification scripts.

@@ -69,43 +69,43 @@ Harness engineering 指的是：围绕模型搭建一整套工作环境，让它
 - [`clean-state-checklist.md`](./docs/resources/zh/templates/clean-state-checklist.md) —— 每次会话结束前的清理清单
 - [`evaluator-rubric.md`](./docs/resources/zh/templates/evaluator-rubric.md) —— 评审 agent 产出质量的评分表
 
-每个文件的详细用法写在 [中文模板指南](./docs/resources/zh/templates/README.md)。英文版见 [English template guide](./docs/resources/en/templates/README.md)。
+每个文件的详细用法写在 [中文模板指南](./docs/resources/zh/templates/index.md)。英文版见 [English template guide](./docs/resources/en/templates/index.md)。
 
 如果你想直接用 OpenAI 那篇 harness engineering 文章里的更完整高级结构，可以继续看
-[`docs/resources/zh/openai-advanced/`](./docs/resources/zh/openai-advanced/README.md)
-和 [`docs/resources/en/openai-advanced/`](./docs/resources/en/openai-advanced/README.md)。
+[`docs/resources/zh/openai-advanced/`](./docs/resources/zh/openai-advanced/index.md)
+和 [`docs/resources/en/openai-advanced/`](./docs/resources/en/openai-advanced/index.md)。
 
 ## 课程大纲
 
 ### 讲义
 
-- [Lecture 01. 模型能力强，不等于执行可靠](./lectures/lecture-01-why-capable-agents-still-fail/README.md)
-- [Lecture 02. Harness 的定义](./lectures/lecture-02-what-a-harness-actually-is/README.md)
-- [Lecture 03. 让代码仓库成为唯一的事实来源](./lectures/lecture-03-why-the-repository-must-become-the-system-of-record/README.md)
-- [Lecture 04. 把指令拆分到不同文件里](./lectures/lecture-04-why-one-giant-instruction-file-fails/README.md)
-- [Lecture 05. 让跨会话的任务保持上下文连续](./lectures/lecture-05-why-long-running-tasks-lose-continuity/README.md)
-- [Lecture 06. 让 agent 每次工作前先初始化](./lectures/lecture-06-why-initialization-needs-its-own-phase/README.md)
-- [Lecture 07. 给 agent 划清每次任务的边界](./lectures/lecture-07-why-agents-overreach-and-under-finish/README.md)
-- [Lecture 08. 用功能清单约束 agent 该做什么](./lectures/lecture-08-why-feature-lists-are-harness-primitives/README.md)
-- [Lecture 09. 防止 agent 提前宣告完成](./lectures/lecture-09-why-agents-declare-victory-too-early/README.md)
-- [Lecture 10. 跑通完整流程才算真正验证](./lectures/lecture-10-why-end-to-end-testing-changes-results/README.md)
-- [Lecture 11. 让 agent 的运行过程可观测](./lectures/lecture-11-why-observability-belongs-inside-the-harness/README.md)
-- [Lecture 12. 每次会话结束前都做好交接](./lectures/lecture-12-why-every-session-must-leave-a-clean-state/README.md)
+- [Lecture 01. 模型能力强，不等于执行可靠](./docs/lectures/lecture-01-why-capable-agents-still-fail/index.md)
+- [Lecture 02. Harness 的定义](./docs/lectures/lecture-02-what-a-harness-actually-is/index.md)
+- [Lecture 03. 让代码仓库成为唯一的事实来源](./docs/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/index.md)
+- [Lecture 04. 把指令拆分到不同文件里](./docs/lectures/lecture-04-why-one-giant-instruction-file-fails/index.md)
+- [Lecture 05. 让跨会话的任务保持上下文连续](./docs/lectures/lecture-05-why-long-running-tasks-lose-continuity/index.md)
+- [Lecture 06. 让 agent 每次工作前先初始化](./docs/lectures/lecture-06-why-initialization-needs-its-own-phase/index.md)
+- [Lecture 07. 给 agent 划清每次任务的边界](./docs/lectures/lecture-07-why-agents-overreach-and-under-finish/index.md)
+- [Lecture 08. 用功能清单约束 agent 该做什么](./docs/lectures/lecture-08-why-feature-lists-are-harness-primitives/index.md)
+- [Lecture 09. 防止 agent 提前宣告完成](./docs/lectures/lecture-09-why-agents-declare-victory-too-early/index.md)
+- [Lecture 10. 跑通完整流程才算真正验证](./docs/lectures/lecture-10-why-end-to-end-testing-changes-results/index.md)
+- [Lecture 11. 让 agent 的运行过程可观测](./docs/lectures/lecture-11-why-observability-belongs-inside-the-harness/index.md)
+- [Lecture 12. 每次会话结束前都做好交接](./docs/lectures/lecture-12-why-every-session-must-leave-a-clean-state/index.md)
 
 ### 项目
 
-- [Project 01. 只写提示词让 agent 做，和定好规则再让它做，差多少](./projects/project-01-baseline-vs-minimal-harness/README.md)
-- [Project 02. 让 agent 看懂项目、接住上次的工作](./projects/project-02-agent-readable-workspace/README.md)
-- [Project 03. 让 agent 关掉再打开还能接着干](./projects/project-03-multi-session-continuity/README.md)
-- [Project 04. 用运行反馈修正 agent 的行为](./projects/project-04-incremental-indexing/README.md)
-- [Project 05. 让 agent 自己检查自己做的对不对](./projects/project-05-grounded-qa-verification/README.md)
-- [Project 06. 搭建一套完整的 agent 工作环境](./projects/project-06-runtime-observability-and-debugging/README.md)
+- [Project 01. 只写提示词让 agent 做，和定好规则再让它做，差多少](./docs/projects/project-01-baseline-vs-minimal-harness/index.md)
+- [Project 02. 让 agent 看懂项目、接住上次的工作](./docs/projects/project-02-agent-readable-workspace/index.md)
+- [Project 03. 让 agent 关掉再打开还能接着干](./docs/projects/project-03-multi-session-continuity/index.md)
+- [Project 04. 用运行反馈修正 agent 的行为](./docs/projects/project-04-incremental-indexing/index.md)
+- [Project 05. 让 agent 自己检查自己做的对不对](./docs/projects/project-05-grounded-qa-verification/index.md)
+- [Project 06. 搭建一套完整的 agent 工作环境](./docs/projects/project-06-runtime-observability-and-debugging/index.md)
 
 ### 资料库
 
-- [Resource Library 总览](./docs/resources/README.md)
-- [中文资料库](./docs/resources/zh/README.md)
-- [English Resource Library](./docs/resources/en/README.md)
+- [Resource Library 总览](./docs/resources/index.md)
+- [中文资料库](./docs/resources/zh/index.md)
+- [English Resource Library](./docs/resources/en/index.md)
 
 ## 学习路径推荐
 
@@ -243,8 +243,8 @@ npm run docs:dev
 
 ## 仓库结构
 
-- `lectures/` - 全部讲义
-- `projects/` - 全部实践项目，包括 capstone
+- `docs/lectures/` - 全部讲义
+- `docs/projects/` - 全部实践项目，包括 capstone
 - `docs/resources/` - 中英双语的可复用模板、检查清单和方法参考
 
 每个 lecture 都带一个 `code/` 目录，用来放小型真实示例和 supporting artifacts。

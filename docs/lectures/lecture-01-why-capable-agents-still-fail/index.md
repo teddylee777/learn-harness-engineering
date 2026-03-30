@@ -54,7 +54,7 @@ instrumentation and diagnosis, followed by targeted harness changes.
 - Startup and health-check command list.
 - Required verification command set.
 - Session handoff notes in the repository.
-- Code examples for this lecture: [`code/README.md`](./code/README.md)
+- Code examples for this lecture: [`code/index.md`](./code/index.md)
 
 ## Readings
 

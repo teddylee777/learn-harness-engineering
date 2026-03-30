@@ -6,15 +6,15 @@
 
 ## 先看中文
 
-- [中文资料库总览](./zh/README.md)
-- [中文模板](./zh/templates/README.md)
-- [中文参考](./zh/reference/README.md)
+- [中文资料库总览](./zh/index.md)
+- [中文模板](./zh/templates/index.md)
+- [中文参考](./zh/reference/index.md)
 
 ## English Resources
 
-- [English Resource Library](./en/README.md)
-- [English Templates](./en/templates/README.md)
-- [English Reference](./en/reference/README.md)
+- [English Resource Library](./en/index.md)
+- [English Templates](./en/templates/index.md)
+- [English Reference](./en/reference/index.md)
 
 ## 这里能找到什么
 
@@ -38,5 +38,5 @@
 
 如果最小 harness 已经不够，可以继续看 OpenAI 风格的 advanced pack：
 
-- 中文：[`zh/openai-advanced/README.md`](./zh/openai-advanced/README.md)
-- English：[`en/openai-advanced/README.md`](./en/openai-advanced/README.md)
+- 中文：[`zh/openai-advanced/index.md`](./zh/openai-advanced/index.md)
+- English：[`en/openai-advanced/index.md`](./en/openai-advanced/index.md)

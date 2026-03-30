@@ -115,7 +115,7 @@ Operationally, clean state and measurement reinforce each other:
   template for comparing harness variants.
 - [`code/cleanup-loop.md`](./code/cleanup-loop.md): recurring maintenance cycle
   for entropy reduction.
-- [`code/README.md`](./code/README.md): index of lecture artifacts.
+- [`code/index.md`](./code/index.md): index of lecture artifacts.
 
 ## Readings
 

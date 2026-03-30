@@ -1,10 +1,10 @@
 # Resource Library
 
-This page is the English entry point for reusable templates, checklists, and method notes.
+This page is the English overview for the bilingual resource library.
 
-Chinese is the default site language. The Chinese resource overview is available at [/resources/](../resources/).
+Chinese is the default site language. The Chinese resource overview is available at [/resources/](/resources/).
 
-## English Resources
+## English Resource Library
 
 - [English Resource Library](/resources/en/)
 - [English Templates](/resources/en/templates/)

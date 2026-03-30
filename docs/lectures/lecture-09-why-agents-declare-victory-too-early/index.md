@@ -45,7 +45,7 @@ exit criteria before completion can be accepted.
   and completion signals.
 - [`code/clean-state-checklist.md`](./code/clean-state-checklist.md): session-exit
   criteria for restartable state.
-- [`code/README.md`](./code/README.md): index of lecture artifacts.
+- [`code/index.md`](./code/index.md): index of lecture artifacts.
 
 ## Readings
 

@@ -15,7 +15,7 @@ agent-first world》里更完整、更高阶的仓库组织方式整理成可以
 
 ## 包含的目录骨架
 
-[`repo-template/`](./repo-template/README.md) 里提供了一套可直接复制的 starter
+[`repo-template/`](./repo-template/index.md) 里提供了一套可直接复制的 starter
 结构，核心布局如下：
 
 ```text
@@ -51,14 +51,14 @@ docs/
 
 1. 如果仓库还小，先用最小资源包。
 2. 一旦进入多模块、多轮会话、长期演化阶段，就把
-   [`repo-template/`](./repo-template/README.md) 里的骨架复制到你的仓库。
+   [`repo-template/`](./repo-template/index.md) 里的骨架复制到你的仓库。
 3. 保持 `AGENTS.md` 很短，把深层规则拆到 `docs/` 里。
 4. 把质量文档、可靠性文档、执行计划当成日常开发的一部分，而不是事后补写。
 5. 把生成物和外部 reference 明确收进仓库，避免 agent 依赖聊天上下文或人的记忆。
 
 ## SOP 资料库
 
-[`sops/`](./sops/README.md) 把文章里的几张关键图，整理成可以逐步执行的标准流程：
+[`sops/`](./sops/index.md) 把文章里的几张关键图，整理成可以逐步执行的标准流程：
 
 - 分层领域架构搭建 SOP
 - 把不可见知识编码进仓库的 SOP

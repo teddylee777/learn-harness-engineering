@@ -46,7 +46,7 @@ durable, testable behavior.
 
 ## Examples and Artifacts
 
-- See [`code/`](./code/README.md) for one-shot failure patterns and incremental
+- See [`code/`](./code/index.md) for one-shot failure patterns and incremental
   task-shaping examples.
 - Useful artifacts include a structured feature/task list with explicit status
   values and a single active-item policy.

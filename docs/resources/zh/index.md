@@ -31,13 +31,13 @@
 
 如果你想直接采用 OpenAI 那篇 harness engineering 文章里更完整的仓库组织方式，可以继续看：
 
-- [`openai-advanced/README.md`](./openai-advanced/README.md)
+- [`openai-advanced/index.md`](./openai-advanced/index.md)
 
 ## 资料库结构
 
-- [`templates/`](./templates/README.md)：可以直接复制到真实仓库里的模板
-- [`reference/`](./reference/README.md)：方法说明、启动流程和问题对照表
-- [`openai-advanced/`](./openai-advanced/README.md)：更完整的 OpenAI 风格高级资源包，包括 repo skeleton、质量文档、执行计划和系统级治理文件
+- [`templates/`](./templates/index.md)：可以直接复制到真实仓库里的模板
+- [`reference/`](./reference/index.md)：方法说明、启动流程和问题对照表
+- [`openai-advanced/`](./openai-advanced/index.md)：更完整的 OpenAI 风格高级资源包，包括 repo skeleton、质量文档、执行计划和系统级治理文件
 
 ## 推荐最小组合
 
@@ -49,4 +49,4 @@
 先把这四样放进项目里，再开始让 agent 持续工作，通常就已经能明显降低返工和瞎猜。
 
 如果你的仓库已经进入多模块、多阶段、多角色协作，可以直接升级到
-[`openai-advanced/`](./openai-advanced/README.md) 这一套高级结构，而不是继续把最小模板硬撑成一个大而乱的系统。
+[`openai-advanced/`](./openai-advanced/index.md) 这一套高级结构，而不是继续把最小模板硬撑成一个大而乱的系统。

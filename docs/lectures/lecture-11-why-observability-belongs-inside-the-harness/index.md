@@ -71,7 +71,7 @@ explicit, pre-agreed standard.
   completion criteria for a bounded upgrade.
 - [`code/evaluator-rubric.md`](./code/evaluator-rubric.md): scoring framework for
   grounded quality assessment.
-- [`code/README.md`](./code/README.md): index of lecture artifacts.
+- [`code/index.md`](./code/index.md): index of lecture artifacts.
 
 ## Readings
 

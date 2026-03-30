@@ -51,7 +51,7 @@ moving specialized detail to targeted references.
 - Repeated edge-case rules with no source links.
 - Contradictory instructions across one large file.
 - Large sections with unclear ownership and update cadence.
-- Lecture examples: [`code/README.md`](./code/README.md)
+- Lecture examples: [`code/index.md`](./code/index.md)
 
 ## Readings
 

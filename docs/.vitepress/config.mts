@@ -78,7 +78,7 @@ export default defineConfig({
     "A project-based course on designing the environments, state, verification, and control systems that make Codex and Claude Code reliable.",
   cleanUrls: true,
   srcExclude: ["temp/**"],
-  ignoreDeadLinks: true,
+  ignoreDeadLinks: false,
   locales: {
     root: {
       label: "简体中文",

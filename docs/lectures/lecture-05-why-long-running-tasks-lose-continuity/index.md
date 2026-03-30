@@ -68,7 +68,7 @@ work.
 
 ## Examples and Artifacts
 
-- See [`code/`](./code/README.md) for continuity failure and recovery examples.
+- See [`code/`](./code/index.md) for continuity failure and recovery examples.
 - Typical continuity artifacts include a progress log, a feature-status file, a
   clean commit checkpoint, and a short verification record from the latest run.
 - A useful handoff artifact states repository status, runtime status, blockers,

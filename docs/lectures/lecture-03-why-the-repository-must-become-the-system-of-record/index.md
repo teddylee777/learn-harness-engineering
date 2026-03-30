@@ -49,7 +49,7 @@ minimal, durable, high-utility context for repeatable work.
 - Validation check:
 - Start a new agent session and ask it to explain the system and next tasks
   using repository contents only.
-- Lecture examples: [`code/README.md`](./code/README.md)
+- Lecture examples: [`code/index.md`](./code/index.md)
 
 ## Readings
 

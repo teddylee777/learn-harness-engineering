@@ -46,7 +46,7 @@ instead of implicit assumptions?
 
 ## Examples and Artifacts
 
-- See [`code/`](./code/README.md) for initializer output and first-run
+- See [`code/`](./code/index.md) for initializer output and first-run
   scaffolding examples.
 - Common initialization artifacts include `init.sh`, a baseline commit, a
   progress artifact, and a structured feature/task surface.
