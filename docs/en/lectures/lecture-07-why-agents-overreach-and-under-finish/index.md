@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-07-why-agents-overreach-and-under-finish/)
+[中文版本 →](/zh/lectures/lecture-07-why-agents-overreach-and-under-finish/)
 
 # Lecture 07. Draw Clear Task Boundaries for Agents
 

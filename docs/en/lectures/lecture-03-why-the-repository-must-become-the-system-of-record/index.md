@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/)
+[中文版本 →](/zh/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/)
 
 # Lecture 03. Make the Repository Your Single Source of Truth
 

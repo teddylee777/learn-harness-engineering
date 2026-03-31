@@ -21,7 +21,7 @@
 - 根指令文件：[`templates/AGENTS.md`](./templates/AGENTS.md) 或 [`templates/CLAUDE.md`](./templates/CLAUDE.md)
 - 功能状态文件：[`templates/feature_list.json`](./templates/feature_list.json)
 - 进度日志：[`templates/claude-progress.md`](./templates/claude-progress.md)
-- 启动脚本参考：`docs/resources/zh/templates/init.sh`
+- 启动脚本参考：`docs/resources/templates/init.sh`
 
 然后按需要补上：
 

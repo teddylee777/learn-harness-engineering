@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-12-why-every-session-must-leave-a-clean-state/)
+[中文版本 →](/zh/lectures/lecture-12-why-every-session-must-leave-a-clean-state/)
 
 # Lecture 12. Clean Handoff at the End of Every Session
 

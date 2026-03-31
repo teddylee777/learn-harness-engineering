@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-11-why-observability-belongs-inside-the-harness/)
+[中文版本 →](/zh/lectures/lecture-11-why-observability-belongs-inside-the-harness/)
 
 # Lecture 11. Make the Agent's Runtime Observable
 

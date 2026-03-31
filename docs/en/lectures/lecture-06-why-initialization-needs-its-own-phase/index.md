@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-06-why-initialization-needs-its-own-phase/)
+[中文版本 →](/zh/lectures/lecture-06-why-initialization-needs-its-own-phase/)
 
 # Lecture 06. Initialize Before Every Agent Session
 

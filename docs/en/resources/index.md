@@ -23,7 +23,7 @@ For a minimal setup, begin with:
 - root instructions: [`templates/AGENTS.md`](./templates/AGENTS.md) or [`templates/CLAUDE.md`](./templates/CLAUDE.md)
 - feature state: [`templates/feature_list.json`](./templates/feature_list.json)
 - progress log: [`templates/claude-progress.md`](./templates/claude-progress.md)
-- bootstrap script reference: `docs/resources/en/templates/init.sh`
+- bootstrap script reference: `docs/en/resources/templates/init.sh`
 
 Then add:
 

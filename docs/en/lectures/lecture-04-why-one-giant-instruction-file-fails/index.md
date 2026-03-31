@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-04-why-one-giant-instruction-file-fails/)
+[中文版本 →](/zh/lectures/lecture-04-why-one-giant-instruction-file-fails/)
 
 # Lecture 04. Split Instructions Across Files, Not One Giant File
 

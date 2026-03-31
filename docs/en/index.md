@@ -4,7 +4,7 @@
 
 This course is a work in progress. Content may change as it evolves.
 
-Chinese is now the default site language. The Chinese homepage is available at [/](../).
+Chinese is now the default site language. The Chinese homepage is available at [/zh/](/zh/).
 
 ## Overview
 
@@ -39,30 +39,29 @@ We're not trying to "make the model smarter." We're studying how to build a reli
 
 ### Lectures
 
-- [Lecture 01. Strong models don't mean reliable execution](/lectures/lecture-01-why-capable-agents-still-fail/)
-- [Lecture 02. What harness actually means](/lectures/lecture-02-what-a-harness-actually-is/)
-- [Lecture 03. Make the repository your single source of truth](/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/)
-- [Lecture 04. Split instructions across files, not one giant file](/lectures/lecture-04-why-one-giant-instruction-file-fails/)
-- [Lecture 05. Keep context alive across sessions](/lectures/lecture-05-why-long-running-tasks-lose-continuity/)
-- [Lecture 06. Initialize before every agent session](/lectures/lecture-06-why-initialization-needs-its-own-phase/)
-- [Lecture 07. Draw clear task boundaries for agents](/lectures/lecture-07-why-agents-overreach-and-under-finish/)
-- [Lecture 08. Use feature lists to constrain what the agent does](/lectures/lecture-08-why-feature-lists-are-harness-primitives/)
-- [Lecture 09. Stop agents from declaring victory early](/lectures/lecture-09-why-agents-declare-victory-too-early/)
-- [Lecture 10. Only a full-pipeline run counts as real verification](/lectures/lecture-10-why-end-to-end-testing-changes-results/)
-- [Lecture 11. Make the agent's runtime observable](/lectures/lecture-11-why-observability-belongs-inside-the-harness/)
-- [Lecture 12. Clean handoff at the end of every session](/lectures/lecture-12-why-every-session-must-leave-a-clean-state/)
+- [Lecture 01. Strong models don't mean reliable execution](/en/lectures/lecture-01-why-capable-agents-still-fail/)
+- [Lecture 02. What harness actually means](/en/lectures/lecture-02-what-a-harness-actually-is/)
+- [Lecture 03. Make the repository your single source of truth](/en/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/)
+- [Lecture 04. Split instructions across files, not one giant file](/en/lectures/lecture-04-why-one-giant-instruction-file-fails/)
+- [Lecture 05. Keep context alive across sessions](/en/lectures/lecture-05-why-long-running-tasks-lose-continuity/)
+- [Lecture 06. Initialize before every agent session](/en/lectures/lecture-06-why-initialization-needs-its-own-phase/)
+- [Lecture 07. Draw clear task boundaries for agents](/en/lectures/lecture-07-why-agents-overreach-and-under-finish/)
+- [Lecture 08. Use feature lists to constrain what the agent does](/en/lectures/lecture-08-why-feature-lists-are-harness-primitives/)
+- [Lecture 09. Stop agents from declaring victory early](/en/lectures/lecture-09-why-agents-declare-victory-too-early/)
+- [Lecture 10. Only a full-pipeline run counts as real verification](/en/lectures/lecture-10-why-end-to-end-testing-changes-results/)
+- [Lecture 11. Make the agent's runtime observable](/en/lectures/lecture-11-why-observability-belongs-inside-the-harness/)
+- [Lecture 12. Clean handoff at the end of every session](/en/lectures/lecture-12-why-every-session-must-leave-a-clean-state/)
 
 ### Projects
 
-- [Project 01. Prompt-only vs. rules-first: how much difference does it make](/projects/project-01-baseline-vs-minimal-harness/)
-- [Project 02. Make the project readable and pick up where you left off](/projects/project-02-agent-readable-workspace/)
-- [Project 03. Keep the agent working across session restarts](/projects/project-03-multi-session-continuity/)
-- [Project 04. Use runtime feedback to correct agent behavior](/projects/project-04-incremental-indexing/)
-- [Project 05. Make the agent verify its own work](/projects/project-05-grounded-qa-verification/)
-- [Project 06. Build a complete agent harness](/projects/project-06-runtime-observability-and-debugging/)
+- [Project 01. Prompt-only vs. rules-first: how much difference does it make](/en/projects/project-01-baseline-vs-minimal-harness/)
+- [Project 02. Make the project readable and pick up where you left off](/en/projects/project-02-agent-readable-workspace/)
+- [Project 03. Keep the agent working across session restarts](/en/projects/project-03-multi-session-continuity/)
+- [Project 04. Use runtime feedback to correct agent behavior](/en/projects/project-04-incremental-indexing/)
+- [Project 05. Make the agent verify its own work](/en/projects/project-05-grounded-qa-verification/)
+- [Project 06. Build a complete agent harness](/en/projects/project-06-runtime-observability-and-debugging/)
 
 ### Resource Library
 
-- [English Resource Overview](/en/resources)
-- [English Resource Library](/resources/en/)
-- [Chinese Resource Library](/resources/zh/)
+- [English Resource Overview](/en/resources/)
+- [Chinese Resource Library](/zh/resources/)

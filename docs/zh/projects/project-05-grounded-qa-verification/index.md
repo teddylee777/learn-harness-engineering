@@ -12,7 +12,7 @@
 
 - Claude Code 或 Codex（用于生成和规划角色）
 - 同一个或另一个 agent 实例（用于评估角色）
-- 评估量表（参考 `docs/resources/zh/templates/evaluator-rubric.md`）
+- 评估量表（参考 `docs/zh/resources/templates/evaluator-rubric.md`）
 - Sprint contract 模板（参考 `docs/lectures/lecture-11-why-observability-belongs-inside-the-harness/code/sprint-contract.md`）
 
 ## 具体步骤

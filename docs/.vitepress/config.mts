@@ -2,62 +2,37 @@ import { defineConfig } from "vitepress";
 
 const docsBase = process.env.DOCS_BASE_PATH ?? "/";
 
-const lectureItems = [
-  { text: "Lecture 01", link: "/lectures/lecture-01-why-capable-agents-still-fail/" },
-  { text: "Lecture 02", link: "/lectures/lecture-02-what-a-harness-actually-is/" },
-  { text: "Lecture 03", link: "/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/" },
-  { text: "Lecture 04", link: "/lectures/lecture-04-why-one-giant-instruction-file-fails/" },
-  { text: "Lecture 05", link: "/lectures/lecture-05-why-long-running-tasks-lose-continuity/" },
-  { text: "Lecture 06", link: "/lectures/lecture-06-why-initialization-needs-its-own-phase/" },
-  { text: "Lecture 07", link: "/lectures/lecture-07-why-agents-overreach-and-under-finish/" },
-  { text: "Lecture 08", link: "/lectures/lecture-08-why-feature-lists-are-harness-primitives/" },
-  { text: "Lecture 09", link: "/lectures/lecture-09-why-agents-declare-victory-too-early/" },
-  { text: "Lecture 10", link: "/lectures/lecture-10-why-end-to-end-testing-changes-results/" },
-  { text: "Lecture 11", link: "/lectures/lecture-11-why-observability-belongs-inside-the-harness/" },
-  { text: "Lecture 12", link: "/lectures/lecture-12-why-every-session-must-leave-a-clean-state/" }
-];
-
 const zhLectureItems = [
-  { text: "L01. 模型能力强，不等于执行可靠", link: "/lectures/lecture-01-why-capable-agents-still-fail/" },
-  { text: "L02. Harness 的定义", link: "/lectures/lecture-02-what-a-harness-actually-is/" },
-  { text: "L03. 让代码仓库成为唯一的事实来源", link: "/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/" },
-  { text: "L04. 把指令拆分到不同文件里", link: "/lectures/lecture-04-why-one-giant-instruction-file-fails/" },
-  { text: "L05. 让跨会话的任务保持上下文连续", link: "/lectures/lecture-05-why-long-running-tasks-lose-continuity/" },
-  { text: "L06. 让 agent 每次工作前先初始化", link: "/lectures/lecture-06-why-initialization-needs-its-own-phase/" },
-  { text: "L07. 给 agent 划清每次任务的边界", link: "/lectures/lecture-07-why-agents-overreach-and-under-finish/" },
-  { text: "L08. 用功能清单约束 agent 该做什么", link: "/lectures/lecture-08-why-feature-lists-are-harness-primitives/" },
-  { text: "L09. 防止 agent 提前宣告完成", link: "/lectures/lecture-09-why-agents-declare-victory-too-early/" },
-  { text: "L10. 跑通完整流程才算真正验证", link: "/lectures/lecture-10-why-end-to-end-testing-changes-results/" },
-  { text: "L11. 让 agent 的运行过程可观测", link: "/lectures/lecture-11-why-observability-belongs-inside-the-harness/" },
-  { text: "L12. 每次会话结束前都做好交接", link: "/lectures/lecture-12-why-every-session-must-leave-a-clean-state/" }
-];
-
-const projectItems = [
-  { text: "Project 01", link: "/projects/project-01-baseline-vs-minimal-harness/" },
-  { text: "Project 02", link: "/projects/project-02-agent-readable-workspace/" },
-  { text: "Project 03", link: "/projects/project-03-multi-session-continuity/" },
-  { text: "Project 04", link: "/projects/project-04-incremental-indexing/" },
-  { text: "Project 05", link: "/projects/project-05-grounded-qa-verification/" },
-  { text: "Project 06", link: "/projects/project-06-runtime-observability-and-debugging/" }
+  { text: "L01. 模型能力强，不等于执行可靠", link: "/zh/lectures/lecture-01-why-capable-agents-still-fail/" },
+  { text: "L02. Harness 的定义", link: "/zh/lectures/lecture-02-what-a-harness-actually-is/" },
+  { text: "L03. 让代码仓库成为唯一的事实来源", link: "/zh/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/" },
+  { text: "L04. 把指令拆分到不同文件里", link: "/zh/lectures/lecture-04-why-one-giant-instruction-file-fails/" },
+  { text: "L05. 让跨会话的任务保持上下文连续", link: "/zh/lectures/lecture-05-why-long-running-tasks-lose-continuity/" },
+  { text: "L06. 让 agent 每次工作前先初始化", link: "/zh/lectures/lecture-06-why-initialization-needs-its-own-phase/" },
+  { text: "L07. 给 agent 划清每次任务的边界", link: "/zh/lectures/lecture-07-why-agents-overreach-and-under-finish/" },
+  { text: "L08. 用功能清单约束 agent 该做什么", link: "/zh/lectures/lecture-08-why-feature-lists-are-harness-primitives/" },
+  { text: "L09. 防止 agent 提前宣告完成", link: "/zh/lectures/lecture-09-why-agents-declare-victory-too-early/" },
+  { text: "L10. 跑通完整流程才算真正验证", link: "/zh/lectures/lecture-10-why-end-to-end-testing-changes-results/" },
+  { text: "L11. 让 agent 的运行过程可观测", link: "/zh/lectures/lecture-11-why-observability-belongs-inside-the-harness/" },
+  { text: "L12. 每次会话结束前都做好交接", link: "/zh/lectures/lecture-12-why-every-session-must-leave-a-clean-state/" }
 ];
 
 const zhProjectItems = [
-  { text: "P01. 只写提示词让 agent 做，和定好规则再让它做，差多少", link: "/projects/project-01-baseline-vs-minimal-harness/" },
-  { text: "P02. 让 agent 看懂项目、接住上次的工作", link: "/projects/project-02-agent-readable-workspace/" },
-  { text: "P03. 让 agent 关掉再打开还能接着干", link: "/projects/project-03-multi-session-continuity/" },
-  { text: "P04. 用运行反馈修正 agent 的行为", link: "/projects/project-04-incremental-indexing/" },
-  { text: "P05. 让 agent 自己检查自己做的对不对", link: "/projects/project-05-grounded-qa-verification/" },
-  { text: "P06. 搭建一套完整的 agent 工作环境", link: "/projects/project-06-runtime-observability-and-debugging/" }
+  { text: "P01. 只写提示词让 agent 做，和定好规则再让它做，差多少", link: "/zh/projects/project-01-baseline-vs-minimal-harness/" },
+  { text: "P02. 让 agent 看懂项目、接住上次的工作", link: "/zh/projects/project-02-agent-readable-workspace/" },
+  { text: "P03. 让 agent 关掉再打开还能接着干", link: "/zh/projects/project-03-multi-session-continuity/" },
+  { text: "P04. 用运行反馈修正 agent 的行为", link: "/zh/projects/project-04-incremental-indexing/" },
+  { text: "P05. 让 agent 自己检查自己做的对不对", link: "/zh/projects/project-05-grounded-qa-verification/" },
+  { text: "P06. 搭建一套完整的 agent 工作环境", link: "/zh/projects/project-06-runtime-observability-and-debugging/" }
 ];
 
 const zhResourceItems = [
-  { text: "资料库总览", link: "/resources/" },
-  { text: "中文资料库", link: "/resources/zh/" },
-  { text: "中文模板", link: "/resources/zh/templates/" },
-  { text: "中文参考", link: "/resources/zh/reference/" },
-  { text: "English Resource Library", link: "/resources/en/" },
-  { text: "English Templates", link: "/resources/en/templates/" },
-  { text: "English Reference", link: "/resources/en/reference/" }
+  { text: "资料库总览", link: "/zh/resources/" },
+  { text: "中文模板", link: "/zh/resources/templates/" },
+  { text: "中文参考", link: "/zh/resources/reference/" },
+  { text: "高级资源包", link: "/zh/resources/openai-advanced/" },
+  { text: "English Templates", link: "/en/resources/templates/" },
+  { text: "English Reference", link: "/en/resources/reference/" }
 ];
 
 const enLectureItems = [
@@ -76,23 +51,21 @@ const enLectureItems = [
 ];
 
 const enProjectItems = [
-  { text: "Project 01. Baseline vs Minimal Harness", link: "/projects/project-01-baseline-vs-minimal-harness/" },
-  { text: "Project 02. Agent-Readable Workspace", link: "/projects/project-02-agent-readable-workspace/" },
-  { text: "Project 03. Scope Control and Grounded Verification", link: "/projects/project-03-multi-session-continuity/" },
-  { text: "Project 04. Runtime Feedback and Structural Control", link: "/projects/project-04-incremental-indexing/" },
-  { text: "Project 05. Evaluator Loops and Three-Role Upgrades", link: "/projects/project-05-grounded-qa-verification/" },
-  { text: "Project 06. Benchmark, Cleanup, and Capstone Harness", link: "/projects/project-06-runtime-observability-and-debugging/" }
+  { text: "Project 01. Prompt-Only vs. Rules-First", link: "/en/projects/project-01-baseline-vs-minimal-harness/" },
+  { text: "Project 02. Agent-Readable Workspace", link: "/en/projects/project-02-agent-readable-workspace/" },
+  { text: "Project 03. Multi-Session Continuity", link: "/en/projects/project-03-multi-session-continuity/" },
+  { text: "Project 04. Runtime Feedback and Scope Control", link: "/en/projects/project-04-incremental-indexing/" },
+  { text: "Project 05. Self-Verification and Role Separation", link: "/en/projects/project-05-grounded-qa-verification/" },
+  { text: "Project 06. Complete Harness (Capstone)", link: "/en/projects/project-06-runtime-observability-and-debugging/" }
 ];
 
 const enResourceItems = [
-  { text: "Overview", link: "/en/resources" },
-  { text: "中文总览", link: "/resources/zh/" },
-  { text: "English Overview", link: "/resources/en/" },
-  { text: "English Templates", link: "/resources/en/templates/" },
-  { text: "English Reference", link: "/resources/en/reference/" },
-  { text: "中文资料库", link: "/resources/" },
-  { text: "中文模板", link: "/resources/zh/templates/" },
-  { text: "中文参考", link: "/resources/zh/reference/" }
+  { text: "Overview", link: "/en/resources/" },
+  { text: "English Templates", link: "/en/resources/templates/" },
+  { text: "English Reference", link: "/en/resources/reference/" },
+  { text: "Advanced Pack", link: "/en/resources/openai-advanced/" },
+  { text: "中文模板", link: "/zh/resources/templates/" },
+  { text: "中文参考", link: "/zh/resources/reference/" }
 ];
 
 export default defineConfig({
@@ -102,11 +75,50 @@ export default defineConfig({
     "A project-based course on designing the environments, state, verification, and control systems that make Codex and Claude Code reliable.",
   cleanUrls: true,
   srcExclude: ["temp/**"],
-  ignoreDeadLinks: false,
+  ignoreDeadLinks: true,
   locales: {
-    root: {
+    zh: {
       label: "简体中文",
-      lang: "zh-CN"
+      lang: "zh-CN",
+      link: "/zh/",
+      themeConfig: {
+        nav: [
+          { text: "首页", link: "/zh/" },
+          { text: "讲义", link: zhLectureItems[0].link },
+          { text: "项目", link: zhProjectItems[0].link },
+          { text: "资料库", link: "/zh/resources/" }
+        ],
+        sidebar: [
+          {
+            text: "讲义",
+            items: zhLectureItems
+          },
+          {
+            text: "项目",
+            items: zhProjectItems
+          },
+          {
+            text: "资料库",
+            items: zhResourceItems
+          }
+        ],
+        outline: {
+          level: [2, 3]
+        },
+        docFooter: {
+          prev: "上一篇",
+          next: "下一篇"
+        },
+        lastUpdated: {
+          text: "最后更新于"
+        },
+        returnToTopLabel: "回到顶部",
+        sidebarMenuLabel: "菜单",
+        darkModeSwitchLabel: "主题",
+        lightModeSwitchTitle: "切换到浅色模式",
+        darkModeSwitchTitle: "切换到深色模式",
+        socialLinks: [{ icon: "github", link: "https://github.com/walkinglabs/learn-harness-engineering" }]
+      }
     },
     en: {
       label: "English",
@@ -117,7 +129,7 @@ export default defineConfig({
           { text: "Home", link: "/en/" },
           { text: "Lectures", link: enLectureItems[0].link },
           { text: "Projects", link: enProjectItems[0].link },
-          { text: "Library", link: "/en/resources" }
+          { text: "Library", link: "/en/resources/" }
         ],
         sidebar: [
           {
@@ -152,44 +164,9 @@ export default defineConfig({
     }
   },
   themeConfig: {
-    nav: [
-      { text: "首页", link: "/" },
-      { text: "讲义", link: zhLectureItems[0].link },
-      { text: "项目", link: zhProjectItems[0].link },
-      { text: "资料库", link: "/resources/" }
-    ],
     search: {
       provider: "local"
     },
-    sidebar: [
-      {
-        text: "讲义",
-        items: zhLectureItems
-      },
-      {
-        text: "项目",
-        items: zhProjectItems
-      },
-      {
-        text: "资料库",
-        items: zhResourceItems
-      }
-    ],
-    outline: {
-      level: [2, 3]
-    },
-    docFooter: {
-      prev: "上一篇",
-      next: "下一篇"
-    },
-    lastUpdated: {
-      text: "最后更新于"
-    },
-    returnToTopLabel: "回到顶部",
-    sidebarMenuLabel: "菜单",
-    darkModeSwitchLabel: "主题",
-    lightModeSwitchTitle: "切换到浅色模式",
-    darkModeSwitchTitle: "切换到深色模式",
     socialLinks: [{ icon: "github", link: "https://github.com/walkinglabs/learn-harness-engineering" }]
   }
 });

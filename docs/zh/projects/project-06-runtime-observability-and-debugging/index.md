@@ -11,8 +11,8 @@
 - Claude Code 或 Codex
 - Git
 - Node.js + Electron
-- 质量文档模板（`docs/resources/zh/templates/quality-document.md`）
-- 评估量表（`docs/resources/zh/templates/evaluator-rubric.md`）
+- 质量文档模板（`docs/zh/resources/templates/quality-document.md`）
+- 评估量表（`docs/zh/resources/templates/evaluator-rubric.md`）
 - 前五个项目积累的所有 harness 组件
 
 ## 具体步骤

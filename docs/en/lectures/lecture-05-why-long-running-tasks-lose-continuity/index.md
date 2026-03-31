@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-05-why-long-running-tasks-lose-continuity/)
+[中文版本 →](/zh/lectures/lecture-05-why-long-running-tasks-lose-continuity/)
 
 # Lecture 05. Keep Context Alive Across Sessions
 

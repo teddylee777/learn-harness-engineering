@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-10-why-end-to-end-testing-changes-results/)
+[中文版本 →](/zh/lectures/lecture-10-why-end-to-end-testing-changes-results/)
 
 # Lecture 10. Only a Full-Pipeline Run Counts as Real Verification
 

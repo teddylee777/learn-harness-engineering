@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-08-why-feature-lists-are-harness-primitives/)
+[中文版本 →](/zh/lectures/lecture-08-why-feature-lists-are-harness-primitives/)
 
 # Lecture 08. Use Feature Lists to Constrain What the Agent Does
 

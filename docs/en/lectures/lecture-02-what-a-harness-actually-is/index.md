@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-02-what-a-harness-actually-is/)
+[中文版本 →](/zh/lectures/lecture-02-what-a-harness-actually-is/)
 
 # Lecture 02. What Harness Actually Means
 

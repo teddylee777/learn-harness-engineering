@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-09-why-agents-declare-victory-too-early/)
+[中文版本 →](/zh/lectures/lecture-09-why-agents-declare-victory-too-early/)
 
 # Lecture 09. Stop Agents from Declaring Victory Early
 

@@ -1,4 +1,4 @@
-[中文版本 →](/lectures/lecture-01-why-capable-agents-still-fail/)
+[中文版本 →](/zh/lectures/lecture-01-why-capable-agents-still-fail/)
 
 # Lecture 01. Strong Models Don't Mean Reliable Execution
 
