@@ -1,93 +1,139 @@
-# Lecture 11. Why Observability Belongs Inside the Harness
+[English Version →](/en/lectures/lecture-11-why-observability-belongs-inside-the-harness/)
 
-## Question
+# 第十一讲. 让 agent 的运行过程可观测
 
-Why should observability be treated as a built-in harness capability rather than
-an optional debugging tool?
+## 这节课要解决什么问题
 
-## Why It Matters
+你让 agent 做一个功能，它跑了 20 分钟，改了一堆文件，然后告诉你"做完了但有两个测试失败"。你问它为什么失败，它说"不太确定，可能是时序问题"。你问它改了哪些关键路径，它说"让我看看代码……"。
 
-Without observability, agents cannot reliably distinguish correct execution from
-plausible but incorrect output. OpenAI and Anthropic both describe reliability
-as an evidence problem: the harness must expose runtime behavior and evaluation
-signals in forms that can guide the next decision.
+这不是 agent 能力不够，是你的 harness 没有给它提供足够的可观测性。**没有可观测性，agent 在不确定状态中做决策，评估变成主观判断，重试变成盲目摸索。** OpenAI 和 Anthropic 都将可靠性定义为证据问题——harness 必须以可指导下一步决策的形式暴露运行时行为和评估信号。
 
-## Core Concepts
+## 核心概念
 
-- Runtime observability includes logs, traces, process events, and health checks.
-- Workflow observability includes plans, rubrics, and explicit acceptance
-  criteria.
-- Separate planner, generator, and evaluator roles require shared evidence.
-- Observable artifacts enable correction loops across long-running sessions.
+- **运行时可观测性**：系统层的信号——日志、追踪、进程事件、健康检查。回答"系统做了什么"。
+- **过程可观测性**：harness 决策工件的可见性——计划、评分标准、验收条件。回答"为什么这个变更应该被接受"。
+- **任务轨迹**：一个任务从开始到完成的完整决策路径记录，类似分布式系统中的请求追踪。agent 的每一步操作及其上下文都被记录。
+- **冲刺合同**：编码开始前协商的短期协议——明确任务范围、验证标准、排除项。是过程可观测性的核心工具。
+- **评估评分标准**：把质量评估从主观判断变成基于证据的结构化评分。使不同评估者对同一输出产生相似结论。
+- **双层可观测性**：系统层和过程层同时设计、相互增强。运行时信号解释行为，过程工件解释意图。
 
-## Detailed Explanation
+## 为什么会这样
 
-OpenAI frames the harness as the mechanism that turns model reasoning into
-verifiable engineering work. This requires direct feedback from execution, not
-only inspection of generated code. Runtime visibility answers questions such as
-whether a flow executed, where it failed, and which boundary caused the failure.
+### 可观测性缺失的真实代价
 
-Anthropic extends this to multi-role workflows. When planner, generator, and
-evaluator roles are used, each role needs access to structured artifacts:
-contracts, rubrics, and measurable outcomes. If these artifacts are missing,
-evaluation becomes subjective and retries become inefficient.
+当 harness 缺乏可观测性时，四类问题系统性出现：
 
-Observability therefore has two layers:
+**无法区分"正确"和"看似正确"**：一个函数在代码审查时看起来完全正确——语法对、逻辑通。但运行时因为边界条件处理错误，在特定输入下产生了不正确结果。只有运行时追踪能揭示实际执行路径偏离了预期。
 
-1. System layer: application runtime signals.
-2. Process layer: harness decision artifacts used for evaluation and handoff.
+**评估变成玄学**：没有评分标准和验收条件时，评估者（人或 agent）依赖隐式假设。同一个输出，不同评估者可能给出截然不同的评价。质量评估不可复现。
 
-The two layers should be designed together. Runtime signals explain behavior,
-while process artifacts explain why a change should be accepted or rejected.
+**重试变成盲猜**：agent 不知道为什么失败时，重试方向是随机的。它可能在错误的方向上反复尝试——修复了不相关的代码路径而忽略真正的故障根源。每次盲重试都消耗 token 和时间。
 
-### Sprint Contracts
+**会话交接信息断崖**：当未完成的工作移交给下一个会话时，缺乏可观测性意味着新会话必须从零诊断系统状态。Anthropic 的长期运行 agent 观察表明，这种重复诊断可能占会话总时间的 30-50%。
 
-When multiple roles collaborate — planner, generator, evaluator — the point
-where work begins is a common failure surface. If the generator and evaluator
-have different expectations about what "done" looks like, evaluation becomes
-subjective and revision loops become wasteful.
+### Claude Code 的真实场景
 
-Anthropic's harness practice introduces **sprint contracts** to solve this.
-Before any code is written, the generator and evaluator negotiate a short
-written agreement that specifies:
+想象一个使用"计划者-生成者-评估者"三角色工作流的 harness，执行"为应用添加暗色模式"任务。
 
-1. What will be built in this sprint.
-2. How success will be verified (specific tests or checks).
-3. What is explicitly out of scope.
+**没有可观测性**：计划者输出模糊描述。生成者根据模糊描述实现暗色模式，但和计划者的隐式预期不一致。评估者基于自己的隐式标准拒绝，但说不出具体哪里不对。生成者基于模糊拒绝理由盲重试。循环 3-4 次，总耗时约 45 分钟，最终勉强产出。
 
-The contract is a file in the repository. Both roles read it before starting.
-If they disagree on the terms, they iterate on the contract first. This
-front-loads alignment and prevents the common pattern where the generator
-builds something the evaluator immediately rejects for predictable reasons.
+**有完整可观测性**：计划者输出冲刺合同——列明要改哪些组件、每个组件的验证标准、排除项（不处理打印样式）。生成者按合同实现。运行时可观测性记录每个组件的样式加载和应用过程。评估者用评分标准逐维度评估，附具体证据引用。一次迭代出高质量结果，总耗时约 15 分钟。
 
-Sprint contracts are especially valuable when the evaluator is a separate
-agent. Without a contract, the evaluator's review criteria are implicit and
-may shift between runs. With a contract, the evaluator grades against an
-explicit, pre-agreed standard.
+效率差 3 倍。区别只在可观测性。
 
-## Examples and Artifacts
+### 为什么 agent 自己解决不了这个问题
 
-- [`code/sprint-contract.md`](./code/sprint-contract.md): explicit goal and
-  completion criteria for a bounded upgrade.
-- [`code/evaluator-rubric.md`](./code/evaluator-rubric.md): scoring framework for
-  grounded quality assessment.
-- [`code/index.md`](./code/index.md): index of lecture artifacts.
+你可能在想："agent 不能自己打印日志吗？" 问题在于：
 
-## Readings
+1. agent 不知道它不知道什么——它不会主动记录自己没意识到需要的信号。
+2. 日志格式不统一——不同会话用不同的日志格式，无法做系统化分析。
+3. 过程可观测性不是日志能解决的——冲刺合同和评分标准是结构化的工件，需要 harness 层面的支持。
 
-Primary:
-- OpenAI: *Harness engineering: leveraging Codex in an agent-first world*
-- Anthropic: *Harness design for long-running application development*
+## 怎么做才对
 
-Secondary:
-- HumanLayer: *Skill Issue: Harness Engineering for Coding Agents*
+### 1. 在 harness 里内置运行时信号采集
 
-## Exercises
+不要依赖 agent 自己打印日志。harness 应该自动采集以下信号：
 
-1. Add one runtime signal and one process artifact to an existing task. Measure
-   whether evaluator confidence improves on first pass.
-2. Use [`code/evaluator-rubric.md`](./code/evaluator-rubric.md) to score two
-   outputs for the same task. Compare where disagreement appears and why.
-3. Write a sprint contract using
-   [`code/sprint-contract.md`](./code/sprint-contract.md), then run a task and
-   record which required signals were missing at review time.
+- **应用生命周期**：启动、就绪、运行、关闭各阶段状态
+- **功能路径执行**：关键路径的执行记录，包括入口、检查点和出口
+- **数据流**：数据在组件间的流转记录
+- **资源利用**：异常的资源使用模式（如内存持续增长）
+- **错误和异常**：完整的错误上下文，不只是错误消息
+
+### 2. 实施冲刺合同
+
+在每个任务开始前，生成者和评估者（可能是同一个 agent 的不同调用）协商一份合同：
+
+```markdown
+# 冲刺合同: 暗色模式支持
+
+## 范围
+- 修改主题切换组件
+- 更新全局 CSS 变量
+- 添加暗色模式测试
+
+## 验证标准
+- 每个组件的视觉回归测试通过
+- 主流程端到端测试通过
+- 无样式闪烁 (FOUC)
+
+## 排除项
+- 不处理打印样式
+- 不处理第三方组件暗色模式
+```
+
+### 3. 建立评估评分标准
+
+把"好不好"变成可量化的评分：
+
+```markdown
+# 评分标准
+
+| 维度 | A | B | C | D |
+|------|---|---|---|---|
+| 代码正确性 | 所有测试通过 | 主流程通过 | 部分通过 | 编译失败 |
+| 架构合规 | 完全合规 | 轻微偏离 | 明显偏离 | 严重违反 |
+| 测试覆盖 | 主流程+边缘 | 仅主流程 | 仅有骨架 | 无测试 |
+```
+
+### 4. 用 OpenTelemetry 标准化
+
+为每个 harness 会话创建一个 trace，每个任务创建一个 span，每个验证步骤创建子 span。使用标准属性标注关键信息。这样可观测性数据可以和标准工具链（Jaeger、Zipkin）集成。
+
+## 实际案例
+
+一个使用计划者-生成者-评估者工作流的 harness，执行"添加暗色模式支持"任务：
+
+**不可观测版本**：3-4 轮盲重试，45 分钟，勉强可接受的输出。评估者说"感觉不太对"但说不出哪里不对。生成者在错误方向上浪费大量时间。
+
+**完整可观测版本**：
+- 冲刺合同明确了范围、标准和排除项
+- 运行时追踪记录了每个组件的样式加载过程
+- 评分标准提供了逐维度的结构化评估
+- 一次迭代出高质量结果，15 分钟
+
+效率提升 3 倍，质量更稳定，评估可复现。
+
+## 关键要点
+
+- **可观测性是 harness 的架构属性**——不是事后添加的功能，而是设计时必须考虑的核心能力。
+- **双层可观测性缺一不可**——运行时信号解释"发生了什么"，过程工件解释"为什么这样做"。
+- **冲刺合同前置对齐工作**——防止"生成者做了评估者因可预见原因立即拒绝的东西"。
+- **评分标准让评估可复现**——不同评估者对同一输出产生相似评分。
+- **可观测性缺失导致 30-50% 的会话时间浪费在重复诊断上**。
+
+## 延伸阅读
+
+- [Observability Engineering - Charity Majors](https://www.honeycomb.io/blog/observability-engineering-book) — 现代可观测性工程的理论和实践框架
+- [Dapper - Google (Sigelman et al.)](https://research.google/pubs/pub36356/) — 大规模分布式追踪的开创性实践
+- [Harness Design - Anthropic](https://www.anthropic.com/engineering/harness-design-long-running-apps) — 引入冲刺合同和评估评分标准
+- [Site Reliability Engineering - Google](https://sre.google/sre-book/table-of-contents/) — 可观测性在生产系统中的系统化应用
+
+## 练习
+
+1. **可观测性差距分析**：审查你当前的 harness，评估系统层和过程层可观测性。找出无法从现有信号区分的系统状态，提出补充方案。
+
+2. **冲刺合同实践**：为一个真实任务写冲刺合同。让 agent 按合同执行，对比没有合同时的效率和质量差异。
+
+3. **任务轨迹构建**：记录一个完整编码任务中 agent 的每一步操作。用 OpenTelemetry 语义约定标注。分析轨迹中的信息瓶颈——哪些步骤的决策缺乏足够的信号支持。

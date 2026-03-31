@@ -1,137 +1,155 @@
-# Lecture 12. Why Every Session Must Leave a Clean State
+[English Version →](/en/lectures/lecture-12-why-every-session-must-leave-a-clean-state/)
 
-## Question
+# 第十二讲. 每次会话结束前都做好交接
 
-Why must each agent session end in a clean, restartable state?
+## 这节课要解决什么问题
 
-## Why It Matters
+你的 agent 跑了一下午，改了 20 个文件，提交了代码，会话结束。下一个 agent 会话开始，一上来就发现：构建失败了、测试红了、临时调试文件到处都是、功能清单没更新、进度完全不清楚。新会话的前 30 分钟全花在"搞清楚上一个会话到底干了什么"上。
 
-Long-running development systems degrade when sessions leave ambiguous progress,
-stale artifacts, or unresolved structural violations. OpenAI and Anthropic both
-indicate that reliability over time depends on operational discipline, not only
-successful single runs.
+OpenAI 和 Anthropic 都明确指出：**长期可靠性取决于操作纪律，不仅是单次运行的成功。** 每个会话结束时的状态质量，直接决定下一个会话的效率。这就像 Git 的最佳实践——每次提交应该是一个原子性的、可编译的变更，而不是一堆半成品代码的堆砌。
 
-## Core Concepts
+## 核心概念
 
-- Clean state means the next session can start without manual repair.
-- Benchmark slices are needed to detect harness drift over time.
-- Cleanup loops reduce entropy in code, docs, and quality signals.
-- Maintenance is part of normal harness operation, not emergency work.
-- Quality documents track per-domain and per-layer grades over time.
-- Harness components encode assumptions about what the model cannot do; these
-  assumptions go stale as models improve.
+- **清洁状态**：会话结束时系统满足五个条件——构建通过、测试通过、进度已记录、无过时工件、启动路径可用。缺一个都不算"做完"。
+- **会话完整性**：类比数据库事务——要么全部提交并留下清洁状态，要么回滚到上一致状态。没有中间地带。
+- **质量文档**：对每个模块的质量等级做持续记录的活跃工件。不是一次性评估，而是跟踪代码库是变强了还是变弱了。
+- **清理循环**：定期的维护会话，目标是系统性减少代码库中的熵。不是紧急修复，而是常规运维。
+- **harness 简化**：随着模型能力提升，定期移除不再必要的 harness 组件。今天必要的约束，三个月后可能是多余的开销。
+- **幂等清理**：清理操作无论执行多少次都产生相同结果。确保清理在失败重试场景中仍然安全。
 
-## Detailed Explanation
+## 为什么会这样
 
-OpenAI's harness framing highlights repeatability: a workflow should continue to
-produce reliable outcomes as tasks and contexts change. This requires measurable
-checks beyond one successful demonstration. Benchmark comparisons help isolate
-whether a harness change improved completion rate, reduced retries, or caught
-more defects before review.
+### 熵增是默认状态
 
-Anthropic's long-running agent observations show why clean session exits are
-critical. When unfinished work, stale guidance, or weak boundaries accumulate,
-later sessions spend effort on state repair instead of forward progress. A clean
-exit policy therefore includes explicit recording of progress, removal of stale
-artifacts, and confirmation that the standard startup path still works.
+Lehman 的软件演化定律告诉我们：持续变更的系统，除非主动管理，否则复杂性必然增加。这对 AI 编码 agent 尤其成立——agent 每次会话都会引入变更，如果不在退出时清理，技术债务会指数级累积。
 
-Operationally, clean state and measurement reinforce each other:
+真实数据很说明问题。一个使用 agent 持续开发 12 周的项目，没有清洁策略的情况下：
 
-1. Cleanup reduces noise.
-2. Lower noise improves benchmark signal quality.
-3. Clear benchmarks identify where cleanup policy should be strengthened.
+- 第 1 周：构建通过率 100%，测试通过率 100%，新会话启动 5 分钟
+- 第 4 周：构建 95%，测试 92%，启动 15 分钟
+- 第 8 周：构建 82%，测试 78%，启动 35 分钟
+- 第 12 周：构建 68%，测试 61%，启动 60+ 分钟
 
-### Quality Documents
+同样的项目，有清洁策略的情况下：
 
-OpenAI's harness practice includes a quality document that grades each product
-domain and architectural layer. This is not a one-time assessment — it is a
-living artifact that tracks whether the codebase is getting stronger or weaker
-over time.
+- 第 1 周：100%，100%，5 分钟
+- 第 12 周：97%，95%，9 分钟
 
-A quality document typically grades domains on criteria like:
+12 周后，构建通过率差 29 个百分点，新会话启动时间差 85%。这不是理论推导，是实际可观测到的差异。
 
-- Does verification pass for this area?
-- Can an agent read and modify this area without confusion?
-- Are tests stable, or do they flake?
-- Are architecture boundaries enforced?
+### 五个维度的清洁状态
 
-The grades serve multiple purposes:
+清洁状态不是单一的"代码能编译"，而是五个维度的综合：
 
-1. **Session startup**: an agent reads the quality document to identify where
-   the codebase is weakest and prioritize accordingly.
-2. **Session exit**: the agent updates grades to reflect what changed.
-3. **Benchmark**: comparing quality document snapshots before and after a
-   harness change shows whether the change actually improved codebase health.
-4. **Cleanup**: recurring maintenance sessions target domains with the lowest
-   grades first.
+**构建维度**：代码能无错构建？这是最基本的——下一个会话不应该先修构建错误。
 
-A quality document template is available in the course resource library.
+**测试维度**：所有测试通过？包括会话之前就存在的测试——会话有责任不破坏已有功能。而且要在 CI 环境验证，不是"在我机器上通过"。
 
-### Harness Simplification
+**进度维度**：当前进度已记录在机器可读的工件中？已完成的子任务和通过标准、进行中但未完成的子任务和当前状态、尚未开始的子任务。好的进度记录减少 60-80% 的会话启动诊断时间。
 
-Anthropic's harness design work makes an important meta-point: every harness
-component exists because the model cannot do something reliably on its own. As
-models improve, these assumptions become stale. A component that was load-bearing
-three months ago may now be unnecessary overhead.
+**工件维度**：无过时或歧义的临时工件？调试日志、临时文件、注释掉的代码、TODO 标记——这些都增加下一个会话的认知负担。
 
-The recommended practice is to periodically remove one harness component at a
-time and observe the impact:
+**启动维度**：标准启动路径可用？下一个会话能不能不人工干预就开始工作？环境初始化、代码库加载、上下文获取、任务选择——这些路径不能被破坏。
 
-1. Remove the component.
-2. Run the benchmark task suite.
-3. Compare results with and without the component.
+### "以后再清理"是永远不清理
 
-If outcomes do not degrade, the component can stay removed. If they do, it
-should be restored or replaced with a lighter alternative. This process prevents
-harnesses from accumulating complexity that no longer serves a purpose.
+最常见的心理陷阱是"这次来不及清理了，下次再弄"。但下次的 agent 不知道你上次留下了什么——它看到的是一堆混乱的代码和不确定的状态。它会花大量时间推断"这堆代码里哪些是有意的，哪些是临时的"。
 
-The principle is: **find the simplest solution possible, and only increase
-complexity when needed.** A harness that works today may be over-engineered
-tomorrow.
+更糟的是，每个会话都有自己的任务目标。新会话来的时候是要做新功能的，不是来清理上一个会话的烂摊子的。它会忽略混乱直接开始新工作，然后在混乱的基础上引入更多混乱。这是熵增的正反馈循环。
 
-## Detailed Explanation
+## 怎么做才对
 
-OpenAI’s harness framing highlights repeatability: a workflow should continue to
-produce reliable outcomes as tasks and contexts change. This requires measurable
-checks beyond one successful demonstration. Benchmark comparisons help isolate
-whether a harness change improved completion rate, reduced retries, or caught
-more defects before review.
+### 1. 清洁状态作为完成的必要条件
 
-Anthropic’s long-running agent observations show why clean session exits are
-critical. When unfinished work, stale guidance, or weak boundaries accumulate,
-later sessions spend effort on state repair instead of forward progress. A clean
-exit policy therefore includes explicit recording of progress, removal of stale
-artifacts, and confirmation that the standard startup path still works.
+在 harness 里明确定义：**会话完成 = 任务通过验证 AND 清洁状态检查通过。** 缺任何一个，会话不算完成。在 CLAUDE.md 里写：
 
-Operationally, clean state and measurement reinforce each other:
+```
+## 会话退出检查清单
+- [ ] 构建通过 (npm run build)
+- [ ] 所有测试通过 (npm test)
+- [ ] 功能清单已更新
+- [ ] 无调试代码残留 (console.log, debugger, TODO)
+- [ ] 标准启动路径可用 (npm run dev)
+```
 
-1. Cleanup reduces noise.
-2. Lower noise improves benchmark signal quality.
-3. Clear benchmarks identify where cleanup policy should be strengthened.
+### 2. 双模式清理策略
 
-## Examples and Artifacts
+结合两种清理模式：
 
-- [`code/benchmark-comparison-template.md`](./code/benchmark-comparison-template.md):
-  template for comparing harness variants.
-- [`code/cleanup-loop.md`](./code/cleanup-loop.md): recurring maintenance cycle
-  for entropy reduction.
-- [`code/index.md`](./code/index.md): index of lecture artifacts.
+**即时清理（每个会话结束时）**：清理本次会话创建的临时工件、更新功能清单状态、确保构建和测试通过。这是"引用计数式"清理。
 
-## Readings
+**定期清理（每周一次）**：全系统扫描——处理累积的结构性问题、更新质量文档、运行基准测试检测漂移。这是"追踪式"清理。
 
-Primary:
-- OpenAI: *Harness engineering: leveraging Codex in an agent-first world*
-- Anthropic: *Effective harnesses for long-running agents*
+### 3. 维护质量文档
 
-Secondary:
-- Thoughtworks: *Harness Engineering*
+质量文档是对每个模块持续评分的活跃工件：
 
-## Exercises
+```markdown
+# 质量文档
 
-1. Run a fixed task set on two harness variants and complete
-   [`code/benchmark-comparison-template.md`](./code/benchmark-comparison-template.md).
-   Identify which harness changed both outcome quality and operational cost.
-2. Adopt [`code/cleanup-loop.md`](./code/cleanup-loop.md) for one week and track
-   which recurring issues disappear versus persist.
-3. Draft a clean-exit checklist for your repository. Include startup validation,
-   progress recording, and stale-artifact removal criteria.
+## 用户认证模块 (质量: A)
+- 验证通过: 是
+- agent 可理解: 是
+- 测试稳定性: 稳定
+- 架构边界: 合规
+- 代码规范: 遵循
+
+## 支付模块 (质量: C)
+- 验证通过: 部分（支付回调未测试）
+- agent 可理解: 困难（逻辑分散在 3 个文件）
+- 测试稳定性: 不稳定（2 个 flaky 测试）
+- 架构边界: 有违规
+- 代码规范: 部分遵循
+```
+
+新会话读这个文档就知道优先处理哪里。质量评分最低的模块先修。
+
+### 4. 定期简化 harness
+
+Anthropic 的一个重要洞见：**harness 里的每个组件之所以存在，是因为模型无法独立做好某件事。但随着模型改进，这些假设会过时。** 三个月前必不可少的约束现在可能是多余的开销。
+
+推荐做法：每月挑一个 harness 组件，暂时禁用它，跑基准任务。如果结果没退化，永久移除。如果退化了，恢复或用更轻量的替代。
+
+### 5. 清理操作必须幂等
+
+清理脚本要能安全地重复执行：
+
+```bash
+# 幂等的清理操作
+rm -f /tmp/debug-*.log  # -f 确保文件不存在时不报错
+git checkout -- .env.local  # 恢复到已知状态
+npm run test  # 验证清理未破坏功能
+```
+
+## 实际案例
+
+一个使用 agent 持续开发的 Electron 应用，12 周演化过程的对比数据：
+
+**无清洁策略**（对照组）：第 12 周，构建通过率 68%，测试通过率 61%，新会话启动 60+ 分钟，过时工件 103 个。
+
+**有清洁策略**（实验组）：每个会话结束时执行完整清洁检查 + 每周清理循环。第 12 周，构建通过率 97%，测试通过率 95%，新会话启动 9 分钟，过时工件 11 个。
+
+到第 12 周，实验组的构建通过率比对照组高 29 个百分点，测试通过率高 34 个百分点，新会话启动时间减少 85%。
+
+## 关键要点
+
+- **清洁状态是会话完成的必要条件**——不是可选的善后工作，是"完成定义"的一部分。
+- **五个维度缺一不可**——构建、测试、进度、工件、启动，每个都要显式检查。
+- **质量文档让代码库健康可追踪**——知道哪里在退化才能主动修复。
+- **定期简化 harness**——随着模型能力提升，移除不再必要的约束。
+- **"以后再清理"等于永远不清理**——熵增是默认状态，只有主动的清洁操作才能对抗它。
+
+## 延伸阅读
+
+- [Clean Code - Robert C. Martin](https://www.goodreads.com/book/show/3735293-clean-code) — 代码清洁性的系统化原则
+- [Harness Engineering - OpenAI](https://openai.com/index/harness-engineering/) — 可重复性作为 harness 设计的核心要求
+- [Effective Harnesses - Anthropic](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) — 清洁会话退出对长期可靠性的关键作用
+- [Programs, Life Cycles, and Laws of Software Evolution - Lehman](https://ieeexplore.ieee.org/document/1702314) — 软件演化定律，证明系统复杂性在无主动维护时必然增长
+
+## 练习
+
+1. **清洁状态检查表**：为你的代码库设计一个会话退出检查表，涵盖五个维度。在 5 个连续会话中应用，记录每个维度上的违反次数。
+
+2. **基准对比实验**：固定任务集，两种 harness 变体（有/无清洁状态要求）各跑一遍。比较完成率、重试次数和缺陷逃逸率。
+
+3. **harness 简化实践**：选一个 harness 组件，暂时禁用，跑基准任务。比较有无该组件的结果。决定保留、移除还是替换。

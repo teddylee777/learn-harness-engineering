@@ -1,68 +1,112 @@
-# Lecture 09. Why Agents Declare Victory Too Early
+[English Version →](/en/lectures/lecture-09-why-agents-declare-victory-too-early/)
 
-## Question
+# 第九讲. 防止 agent 提前宣告完成
 
-Why do agents report completion before system-level correctness is established?
+## 这节课要解决什么问题
 
-## Why It Matters
+你让 agent 实现"密码重置"功能。它改了数据库 schema、写了 API 端点、加了邮件模板，跑了单元测试（全部通过），然后自信地告诉你"做完了"。但实际一跑——密码重置链接发不出去（邮件服务配置缺失）、数据库迁移半途失败（schema 不一致）、端到端流程根本没走过一遍。
 
-Premature completion claims create hidden defects, fragile handoffs, and repeated
-rework. OpenAI and Anthropic both show that reliable completion depends on
-evidence from execution, not only confidence from code edits.
+这不是偶然事件。Guo 等人 2017 年在 ICML 上的经典论文证明：**现代神经网络系统性地过度自信**——模型自报的置信度显著高于实际准确率。AI 编码 agent 也一样：它"觉得"做完了，但实际上差得远。你的 harness 必须用外部化的、基于执行的验证来替代 agent 的"感觉"。
 
-## Core Concepts
+## 核心概念
 
-- Completion evidence must be observable and reproducible.
-- Runtime feedback (logs, traces, process state) is required to validate claims.
-- End-of-session cleanliness is part of the definition of done.
-- Recovery quality determines whether later sessions can continue productively.
+- **过早完成声明**：agent 断言任务完成，但实际上存在未满足的正确性规范。核心问题：agent 依据代码层面的局部信心做判断，系统级正确性需要全局验证。
+- **置信度校准偏差**：agent 自报的完成信心与实际完成质量之间的系统性差距。对复杂多文件任务，这个偏差显著为正——agent 总是比实际做得更自信。
+- **终止标准**：一组明确的、可执行的判定条件，定义在 harness 里。agent 必须满足所有条件才能声明完成。"完成"从主观判断变成了客观判定。
+- **验证-确认双闸门**：第一层验证检查"代码是否正确实现了指定行为"；第二层确认检查"系统级行为是否满足端到端需求"。两层都通过才算完成。
+- **运行时反馈信号**：来自程序执行的日志、进程状态、健康检查。这是 harness 判定完成质量的客观基础，不是可选的调试工具。
+- **完成优先级约束**：先验证功能正确性，再处理性能，最后管风格。核心功能没验证通过之前，不许做重构。
 
-## Detailed Explanation
+## 为什么会这样
 
-OpenAI’s harness guidance emphasizes that repository diffs are not enough to
-judge success. Agents need runtime signals that confirm the application started,
-critical paths executed, and expected outputs were produced. Without these
-signals, agents may treat partial progress as full completion.
+### Agent 完成判定的四步滑坡
 
-Anthropic’s long-running harness work adds a second requirement: each session
-must leave the environment in a clean, restartable state. If a session ends
-with ambiguous indexing status, stale artifacts, or undocumented partial work,
-the next session inherits uncertainty and spends time re-diagnosing state.
+过早完成声明几乎总是遵循同一个序列：
 
-In practice, early victory declarations usually follow this sequence:
+1. **局部代码看起来没问题**：语法正确、逻辑似乎合理。静态检查层面没有明显错误。
+2. **运行时行为没有充分观测**：harness 没强制要求全面执行验证，agent 跳过了实际运行或只跑了部分测试。
+3. **验证被跳过或不完整**：跑了单元测试但跳过集成测试，或者跑了测试但没检查覆盖率。
+4. **基于不充分证据断言完成**："代码看起来没问题"被当作"功能已完成"的证据。
 
-1. Local code changes appear plausible.
-2. Runtime behavior is under-observed.
-3. Verification is skipped or incomplete.
-4. Completion is asserted without durable evidence.
+每一步都在丢失信息。从任务规范到代码实现到运行时行为，每次转换都可能引入偏差，而每次跳过的验证都加剧了信息不对称。
 
-A strong harness breaks this sequence by requiring runtime checks and clean-state
-exit criteria before completion can be accepted.
+### 单元测试通过 ≠ 任务完成
 
-## Examples and Artifacts
+这是最常见的陷阱。agent 写了代码，跑了单元测试，全部绿色，然后说"做完了"。但单元测试的设计哲学——隔离被测单元、模拟依赖——恰好使其无法检测跨组件问题：
 
-- `code/indexing.log`: sample runtime record showing startup, import, chunking,
-  and completion signals.
-- [`code/clean-state-checklist.md`](./code/clean-state-checklist.md): session-exit
-  criteria for restartable state.
-- [`code/index.md`](./code/index.md): index of lecture artifacts.
+- **接口不匹配**：A 调 B 时传参格式正确，但 B 的实际行为与 A 的假设不符。各自单元测试都通过，放在一起就崩。
+- **状态传播错误**：数据库迁移改了表结构，但缓存层还持有旧结构的缓存。单元测试不测跨层状态。
+- **环境依赖**：代码在测试环境（mock 一切）行为正确，在真实环境因为配置差异而失败。
 
-## Readings
+### "顺便重构"是完成判定的毒药
 
-Primary:
-- OpenAI: *Harness engineering: leveraging Codex in an agent-first world*
-- Anthropic: *Effective harnesses for long-running agents*
+Claude Code 有一个常见行为模式：在核心功能还没验证通过时就开始重构代码、优化性能、改进风格。Knuth 说的"过早优化是万恶之源"在 agent 场景中有了新含义——重构会改变已完成验证和未完成验证之间的边界，可能破坏之前隐式正确的代码路径。
 
-Secondary:
-- LangChain: *The Anatomy of an Agent Harness*
+## 怎么做才对
 
-## Exercises
+### 1. 外部化终止判定
 
-1. Define a completion checklist that requires at least three runtime signals.
-   Apply it to one feature task and record which previously hidden issues are
-   detected.
-2. Run a task twice: once without explicit clean-state exit rules and once with
-   [`code/clean-state-checklist.md`](./code/clean-state-checklist.md). Compare
-   startup time and diagnostic effort in the next session.
-3. Review a past "done" claim and identify which missing runtime artifact would
-   have made verification stronger.
+完成判定不应该由 agent 自己做。harness 独立执行终止校验，输入是运行时信号，不是 agent 的置信度。在 CLAUDE.md 里写：
+
+```
+## 完成定义
+- 功能完成 = 端到端验证通过，不是"代码写完了"
+- 必须运行的验证层级:
+  1. 单元测试通过
+  2. 集成测试通过
+  3. 端到端流程验证通过
+- 在第 1 层没通过时，不许进入第 2 层
+- 在第 2 层没通过时，不许进入第 3 层
+```
+
+### 2. 构建三层终止校验
+
+- **第一层：语法与静态分析**。成本最低，信息量最小，但必须通过。
+- **第二层：运行时行为验证**。测试执行、应用启动检查、关键路径验证。这是核心完成证据。
+- **第三层：系统级确认**。端到端测试、集成验证、用户场景模拟。防止过早声明的最后一道防线。
+
+### 3. 为 agent 设计错误消息
+
+OpenAI 在 Codex 实践中提出了一个特别有效的模式：**给 agent 写的错误消息要包含修复指导**。不要用 `"Test failed"`，而用 `"Test failed: POST /api/reset-password returned 500. Check that the email service config exists in environment variables. The template file should be at templates/reset-email.html."` 这种具体的、可操作的反馈让 agent 能自我修正，而不需要人类介入。
+
+### 4. 运行时信号的具体形式
+
+有效的运行时信号包括：
+
+- 应用是否成功启动并达到就绪状态？
+- 关键功能路径在运行时是否执行成功？
+- 数据库写入、文件操作等副作用是否正确？
+- 临时资源是否被清理？
+
+## 实际案例
+
+**任务**：实现用户密码重置功能。涉及数据库操作、邮件发送和 API 端点修改。
+
+**过早声明路径**：agent 修改数据库 schema、编写 API 端点、添加邮件模板、跑单元测试（通过）、声明完成。
+
+**实际缺陷**：(1) 端到端流程未测试——重置链接的实际发送和验证未确认。(2) 数据库迁移在部分执行后失败，导致 schema 不一致。(3) 邮件服务配置在目标环境中缺失。
+
+**harness 介入**：终止校验强制执行——(1) 启动完整应用验证重置端点可访问；(2) 执行完整重置流程；(3) 验证数据库状态一致性。所有缺陷在会话内被发现，节省了 5-10 倍的后续修复成本。
+
+## 关键要点
+
+- **agent 系统性地过度自信**——置信度校准偏差是客观存在的，不是主观印象。
+- **完成判定必须外部化**——harness 独立验证，不信任 agent 的"感觉"。
+- **三层校验缺一不可**——语法通过、行为通过、系统通过，层层递进。
+- **错误消息要面向 agent 设计**——包含具体修复步骤，让 agent 能自我修正。
+- **核心功能验证通过之前不许重构**——完成优先级约束是防止过早优化的关键。
+
+## 延伸阅读
+
+- [On Calibration of Modern Neural Networks - Guo et al.](https://arxiv.org/abs/1706.04599) — 证明现代深度网络系统性地过度自信
+- [Building Effective Agents - Anthropic](https://www.anthropic.com/research/building-effective-agents) — 运行时证据在完成判定中的关键作用
+- [Harness Engineering - OpenAI](https://openai.com/index/harness-engineering/) — 过早完成声明是 agent 的主要失败模式之一
+- [The Art of Software Testing - Myers](https://www.goodreads.com/book/show/137543.The_Art_of_Software_Testing) — 测试方法层次和有效性的经典参考
+
+## 练习
+
+1. **终止校验函数设计**：为一个涉及数据库迁移和 API 修改的任务设计完整的终止校验。列出需要的运行时信号和每个信号的通过/失败标准。在一个实际任务上运行，记录它发现了哪些隐藏问题。
+
+2. **校准偏差测量**：选 10 个不同类型的编码任务，记录 agent 的自报完成信心和实际完成质量。计算偏差值，分析它和任务复杂度的关系。
+
+3. **多层防御实验**：对同一组任务跑三种配置——(a) 仅静态分析，(b) 加单元测试，(c) 完整三层校验。比较过早完成声明的比例和未捕获缺陷的数量。
