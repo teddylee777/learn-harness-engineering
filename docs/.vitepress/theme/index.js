@@ -1,9 +1,19 @@
 import DefaultTheme from 'vitepress/theme'
 import './style.css'
 
+let rootEnglishLabel = 'English'
+
 function syncRootLocaleLabel(siteData, href = '') {
   const locales = siteData.value?.locales
-  if (!locales?.root || !locales.en || !locales.zh) return
+  if (!locales?.root || !locales?.zh) return
+
+  if (locales.root.label && locales.root.label !== locales.zh.label) {
+    rootEnglishLabel = locales.root.label
+  }
+
+  if (locales.en?.label) {
+    rootEnglishLabel = locales.en.label
+  }
 
   const base = siteData.value.base || '/'
   const normalized = href || (typeof window !== 'undefined' ? window.location.pathname : '')
@@ -11,7 +21,7 @@ function syncRootLocaleLabel(siteData, href = '') {
     ? normalized.slice(base.length - 1)
     : normalized
 
-  locales.root.label = relative.startsWith('/en/') ? locales.en.label : locales.zh.label
+  locales.root.label = relative.startsWith('/zh/') ? locales.zh.label : rootEnglishLabel
 }
 
 export default {

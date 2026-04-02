@@ -3,6 +3,7 @@ import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
 const docsBase = "/learn-harness-engineering/";
+const starLogo = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23F5C542" stroke="%23D49B00" stroke-width="1.2" d="M12 2.8l2.68 5.43 5.99.87-4.34 4.23 1.02 5.97L12 16.64 6.65 19.3l1.02-5.97-4.34-4.23 5.99-.87L12 2.8Z"/></svg>';
 
 const zhLectureItems = [
   { text: "欢迎", link: "/zh/" },
@@ -84,10 +85,10 @@ export default withMermaid(
     srcExclude: ["temp/**"],
     ignoreDeadLinks: true,
     head: [
-      ['link', { rel: 'icon', type: 'image/svg+xml', href: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="%23FFFFFF" /><path d="M12 4L13.4 8.6L18 10L13.4 11.4L12 16L10.6 11.4L6 10L10.6 8.6L12 4Z" fill="%23D95C41"/></svg>' }]
+      ['link', { rel: 'icon', type: 'image/svg+xml', href: starLogo }]
     ],
     themeConfig: {
-      logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="%231A1A1A" /><path d="M12 4L13.4 8.6L18 10L13.4 11.4L12 16L10.6 11.4L6 10L10.6 8.6L12 4Z" fill="%23D95C41"/></svg>',
+      logo: starLogo,
       search: {
         provider: "local"
       },
@@ -113,6 +114,12 @@ export default withMermaid(
       root: {
         label: "English",
         lang: "en",
+        link: "/en/"
+      },
+      en: {
+        label: "English",
+        lang: "en",
+        link: "/en/",
         themeConfig: {
           nav: [
             { text: "Lectures", link: enLectureItems[1].link, activeMatch: '^/en/(lectures/.*)?$' },
@@ -140,32 +147,27 @@ export default withMermaid(
             { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/zh/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
           ],
           sidebar: {
-          '/zh/projects/': [{ text: "项目", items: zhProjectItems }],
-          '/zh/resources/': [{ text: "资料库", items: zhResourceItems }],
-          '/zh/': [{ text: "讲义", items: zhLectureItems }]
-        },
-        outline: {
-          level: [2, 3]
-        },
-        docFooter: {
-          prev: "上一篇",
-          next: "下一篇"
-        },
-        lastUpdated: {
-          text: "最后更新于"
-        },
-        returnToTopLabel: "回到顶部",
-        sidebarMenuLabel: "菜单",
-        darkModeSwitchLabel: "主题",
-        lightModeSwitchTitle: "切换到浅色模式",
-        darkModeSwitchTitle: "切换到深色模式",
-        socialLinks: [{ icon: "github", link: "https://github.com/walkinglabs/learn-harness-engineering" }]
+            '/zh/projects/': [{ text: "项目", items: zhProjectItems }],
+            '/zh/resources/': [{ text: "资料库", items: zhResourceItems }],
+            '/zh/': [{ text: "讲义", items: zhLectureItems }]
+          },
+          outline: {
+            level: [2, 3]
+          },
+          docFooter: {
+            prev: "上一篇",
+            next: "下一篇"
+          },
+          lastUpdated: {
+            text: "最后更新于"
+          },
+          returnToTopLabel: "回到顶部",
+          sidebarMenuLabel: "菜单",
+          darkModeSwitchLabel: "主题",
+          lightModeSwitchTitle: "切换到浅色模式",
+          darkModeSwitchTitle: "切换到深色模式",
+          socialLinks: [{ icon: "github", link: "https://github.com/walkinglabs/learn-harness-engineering" }]
+        }
       }
-    },
-    en: {
-      label: "English",
-      lang: "en",
-      link: "/en/"
     }
-  }
 }));
