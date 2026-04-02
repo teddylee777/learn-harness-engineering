@@ -276,7 +276,17 @@
   gap: 8px;
 }
 
-/* Nav links styling */
+/* Nav Logo Fix */
+.VPNavBarTitle .logo {
+  height: 24px;
+  width: 24px;
+  margin-right: 6px;
+  border-radius: 4px;
+}
+
+.dark .VPNavBarTitle .logo {
+  filter: invert(1);
+}
 .VPNavBarMenuLink {
   position: relative;
   color: var(--vp-c-text-2) !important;

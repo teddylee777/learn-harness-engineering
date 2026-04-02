@@ -1,10 +1,15 @@
 # Learn Harness Engineering
 
-> A project-based course on building the environment, state management, verification, and control mechanisms that make Codex and Claude Code work more reliably.
+> **A project-based course on building the environment, state management, verification, and control mechanisms that make AI coding agents work reliably.**
 
-This course is a work in progress. Content may change as it evolves.
+Learn Harness Engineering is a course dedicated to the engineering of AI coding agents. We have deeply studied and synthesized the most advanced Harness Engineering theories and practices in the industry. Our core references include:
 
-[中文版本](./README-CN.md)
+- [OpenAI: Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)
+- [Anthropic: Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
+- [Anthropic: Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps)
+- [Awesome Harness Engineering](https://github.com/walkinglabs/awesome-harness-engineering)
+
+[**Website & Docs (English & 中文)**](https://walkinglabs.github.io/learn-harness-engineering/) | [**中文 README**](./README-CN.md)
 
 ---
 
@@ -34,7 +39,7 @@ OpenAI reported the same thing with Codex: in a well-harnessed repository, the s
                                               +--> Scope:       one feature at a time, no overreach
                                               +--> State:       progress log, feature list, git history
                                               +--> Verification: tests, lint, type-check, smoke runs
-                                              +--> Boundaries:  what counts as "done," what counts as "broken"
+                                              +--> Lifecycle:   init at start, clean state at end
                                               |
                                               v
                                          Agent stops only when
@@ -125,6 +130,18 @@ The questions this course actually cares about:
 
 ---
 
+## Course Curriculum & Documentation
+
+For the full course materials, please visit the **[Documentation Website](https://walkinglabs.github.io/learn-harness-engineering/)**.
+
+The curriculum is divided into three parts:
+
+1. **Lectures**: 12 conceptual units explaining the theory behind harness engineering.
+2. **Projects**: 6 hands-on projects where you build an agentic workspace from scratch.
+3. **Resource Library**: Copy-ready templates (`AGENTS.md`, `feature_list.json`, `init.sh`, etc.) to use in your own repositories today.
+
+---
+
 ## Quick Start: Improve Your Agent Today
 
 You don't need to read all 12 lectures before you start getting value. If you're already using a coding agent on a real project, here's how to improve it right now.
@@ -141,37 +158,7 @@ The idea is simple: instead of just writing prompts, give your agent a set of st
     └── src/                   <-- your actual code
 ```
 
-**Step 1.** Copy the root instruction file into your project root:
-
-- [`AGENTS.md`](./docs/resources/en/templates/AGENTS.md) for most agents, or [`CLAUDE.md`](./docs/resources/en/templates/CLAUDE.md) if you're using Claude Code
-- Edit the commands, paths, and rules to match your project
-
-**Step 2.** Copy the startup script:
-
-- `docs/resources/en/templates/init.sh` — runs dependency install, verification, and startup in one shot
-- Replace the `INSTALL_CMD`, `VERIFY_CMD`, and `START_CMD` with your actual commands
-
-**Step 3.** Copy the progress log:
-
-- [`claude-progress.md`](./docs/resources/en/templates/claude-progress.md) — records what was done each session, what's verified, and what's next
-- The agent reads this at the start of every session to pick up where it left off
-
-**Step 4.** Copy the feature list:
-
-- [`feature_list.json`](./docs/resources/en/templates/feature_list.json) — a machine-readable list of features with status, verification steps, and evidence
-- Replace the example features with your own
-
-That's it for the minimum setup. Four files, and your agent sessions will already be more stable than running on prompts alone.
-
-When your project gets more complex, add these:
-
-- [`session-handoff.md`](./docs/resources/en/templates/session-handoff.md) — compact handoff note between sessions
-- [`clean-state-checklist.md`](./docs/resources/en/templates/clean-state-checklist.md) — checklist to run before ending each session
-- [`evaluator-rubric.md`](./docs/resources/en/templates/evaluator-rubric.md) — scorecard for reviewing agent output quality
-
-Each file has detailed usage instructions in the [English template guide](./docs/resources/en/templates/index.md). Chinese versions are available in [中文模板指南](./docs/resources/zh/templates/index.md).
-
-For the fuller OpenAI-style repository layout, use the advanced pack in [`docs/resources/en/openai-advanced/`](./docs/resources/en/openai-advanced/index.md) or [`docs/resources/zh/openai-advanced/`](./docs/resources/zh/openai-advanced/index.md).
+Grab the starter templates from the [Resource Library](https://walkinglabs.github.io/learn-harness-engineering/en/resources/) and drop them into your project. That's it. Four files, and your agent sessions will already be significantly more stable than running on prompts alone.
 
 ---
 
@@ -267,6 +254,8 @@ Each phase takes about a week if you're going part-time. If you want to go faste
 
 ### Lectures — 12 conceptual units, each answering one core question
 
+*Read the full text for each lecture on the [Documentation Website](https://walkinglabs.github.io/learn-harness-engineering/).*
+
 | Session | Question | Core Idea |
 |---------|----------|-----------|
 | [L01](./docs/lectures/lecture-01-why-capable-agents-still-fail/index.md) | Why do strong models still fail on real tasks? | The capability gap between benchmarks and real engineering |
@@ -320,9 +309,8 @@ Each phase takes about a week if you're going part-time. If you want to go faste
 
 ### Resource Library
 
-- [Resource Library Overview](./docs/resources/index.md)
-- [English Resource Library](./docs/resources/en/index.md) — templates, checklists, and method references
-- [Chinese Resource Library](./docs/resources/zh/index.md) — 中文模板、清单和方法参考
+- [English Resource Library](https://walkinglabs.github.io/learn-harness-engineering/en/resources/) — templates, checklists, and method references
+- [Chinese Resource Library](https://walkinglabs.github.io/learn-harness-engineering/zh/resources/) — 中文模板、清单和方法参考
 
 ---
 
@@ -494,4 +482,4 @@ learn-harness-engineering/
 
 ## Acknowledgments
 
-This course was inspired by and draws ideas from [learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) — a progressive guide to building agent from scratch, from a single loop to isolated autonomous execution.
+This course was inspired by and draws ideas from [learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) — a progressive guide to building an agent from scratch, from a single loop to isolated autonomous execution.

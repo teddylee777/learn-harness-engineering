@@ -1,10 +1,15 @@
 # Learn Harness Engineering
 
-> 这是一门项目制课程：系统学习如何通过环境、状态、验证与控制机制，让 Codex 和 Claude Code 更可靠地工作。
+> **这是一门项目制课程：系统学习如何通过环境、状态、验证与控制机制，让 AI 编程智能体（Coding Agents）更可靠地工作。**
 
-本课程仍在持续建设中，内容后续可能会调整。
+Learn Harness Engineering 是一门专注于 AI 编程智能体工程化落地的课程。本课程深度研究并总结了业内最前沿的 Harness Engineering（工具马具/脚手架工程）理论与实践，参考资料包括：
 
-[英文版](./README.md)
+- [OpenAI: Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)
+- [Anthropic: Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
+- [Anthropic: Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps)
+- [Awesome Harness Engineering](https://github.com/walkinglabs/awesome-harness-engineering)
+
+[**官方网站及文档 (English & 中文)**](https://walkinglabs.github.io/learn-harness-engineering/) | [**English README**](./README.md)
 
 ---
 
@@ -34,7 +39,7 @@ OpenAI 用 Codex 也得出了同样结论：在一个 harness 搭得好的仓库
                                           +--> 范围：一次一个功能，不越界
                                           +--> 状态：进度日志、功能清单、git 历史
                                           +--> 验证：测试、lint、类型检查、冒烟测试
-                                          +--> 边界：什么算"完成"、什么算"有问题"
+                                          +--> 周期：开工时初始化，结束时留交接
                                           |
                                           v
                                      agent 只在验证通过后
@@ -124,6 +129,18 @@ Harness engineering 是围绕模型搭建一整套工作环境，让它产出可
 
 ---
 
+## 课程大纲与文档
+
+关于完整的课程内容，请直接访问 **[官方文档站点 (VitePress)](https://walkinglabs.github.io/learn-harness-engineering/zh/)**。
+
+本课程分为三个主要部分：
+
+1. **讲义 (Lectures)**：12 个概念单元，深度解析 Harness 设计的理论基础。
+2. **项目 (Projects)**：6 个循序渐进的实战项目，带你从零开始搭建可靠的 Agent 工作环境。
+3. **资料库 (Resource Library)**：开箱即用的中英文模板（如 `AGENTS.md`、`feature_list.json`、`init.sh`），今天就可以直接复制到你自己的项目中使用。
+
+---
+
 ## 快速开始：今天就能改善你的 agent
 
 不用读完 12 个讲义再动手。如果你已经在用 coding agent 做项目，下面这些能立刻改善效果。
@@ -140,37 +157,9 @@ Harness engineering 是围绕模型搭建一整套工作环境，让它产出可
     └── src/                   <-- 你的代码
 ```
 
-**第一步.** 把根指令文件复制到项目根目录：
+**第一步.** 直接前往 [资料库](https://walkinglabs.github.io/learn-harness-engineering/zh/resources/) 拿到上述文件的模板代码，然后放进你的项目根目录。
 
-- [`AGENTS.md`](./docs/zh/resources/templates/AGENTS.md) 通用版，或者 [`CLAUDE.md`](./docs/zh/resources/templates/CLAUDE.md) 如果你用 Claude Code
-- 把里面的命令、路径和规则换成你自己项目的
-
-**第二步.** 把启动脚本复制进去：
-
-- `docs/zh/resources/templates/init.sh` —— 一条命令完成依赖安装、验证和启动
-- 把 `INSTALL_CMD`、`VERIFY_CMD`、`START_CMD` 换成你自己的
-
-**第三步.** 把进度日志复制进去：
-
-- [`claude-progress.md`](./docs/zh/resources/templates/claude-progress.md) —— 每轮会话记录做了什么、验证了什么、下一步是什么
-- agent 每次开工会先读这个文件，从上次停下的地方继续
-
-**第四步.** 把功能清单复制进去：
-
-- [`feature_list.json`](./docs/zh/resources/templates/feature_list.json) —— 机器可读的功能列表，每个功能有状态、验证步骤和证据
-- 把示例功能换成你自己的
-
-四个文件，最小起步就够了。比光靠一段提示词稳定得多。
-
-等项目变复杂了，再补这些：
-
-- [`session-handoff.md`](./docs/zh/resources/templates/session-handoff.md) —— 会话之间的交接摘要
-- [`clean-state-checklist.md`](./docs/zh/resources/templates/clean-state-checklist.md) —— 每次会话结束前的清理清单
-- [`evaluator-rubric.md`](./docs/zh/resources/templates/evaluator-rubric.md) —— 评审 agent 产出质量的评分表
-
-每个文件的详细用法写在 [中文模板指南](./docs/zh/resources/templates/index.md)。英文版见 [英文模板指南](./docs/en/resources/templates/index.md)。
-
-如果你想直接用 OpenAI 那篇 harness engineering 文章里的更完整高级结构，可以继续看 [`docs/zh/resources/openai-advanced/`](./docs/zh/resources/openai-advanced/index.md) 和 [`docs/en/resources/openai-advanced/`](./docs/en/resources/openai-advanced/index.md)。
+就这么简单。四个文件，最小起步就够了。你的 Agent 表现会比光靠一段提示词稳定得多。
 
 ---
 
@@ -266,6 +255,8 @@ Harness engineering 是围绕模型搭建一整套工作环境，让它产出可
 
 ### 讲义 — 12 个概念单元，每个只回答一个核心问题
 
+*点击访问 [文档站点](https://walkinglabs.github.io/learn-harness-engineering/zh/) 阅读全部讲义。*
+
 | 讲义 | 核心问题 | 关键概念 |
 | ---- | -------- | -------- |
 | [L01](./docs/zh/lectures/lecture-01-why-capable-agents-still-fail/index.md) | 模型能力强，不等于执行可靠 | 基准测试与真实工程之间的能力鸿沟 |
@@ -319,8 +310,8 @@ Harness engineering 是围绕模型搭建一整套工作环境，让它产出可
 
 ### 资料库
 
-- [中文资料库](./docs/zh/resources/index.md) — 中文模板、清单和方法参考
-- [英文资料库](./docs/en/resources/index.md) — English templates, checklists, and method references
+- [中文资料库](https://walkinglabs.github.io/learn-harness-engineering/zh/resources/) — 中文模板、清单和方法参考
+- [英文资料库](https://walkinglabs.github.io/learn-harness-engineering/en/resources/) — English templates, checklists, and method references
 
 ---
 

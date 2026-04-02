@@ -83,8 +83,11 @@ export default withMermaid(
     cleanUrls: true,
     srcExclude: ["temp/**"],
     ignoreDeadLinks: true,
+    head: [
+      ['link', { rel: 'icon', type: 'image/svg+xml', href: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="%23FFFFFF" /><path d="M12 4L13.4 8.6L18 10L13.4 11.4L12 16L10.6 11.4L6 10L10.6 8.6L12 4Z" fill="%23D95C41"/></svg>' }]
+    ],
     themeConfig: {
-      logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23D95C41"><path d="M12 2L13.4 8.6L20 10L13.4 11.4L12 18L10.6 11.4L4 10L10.6 8.6L12 2Z"/></svg>',
+      logo: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="%231A1A1A" /><path d="M12 4L13.4 8.6L18 10L13.4 11.4L12 16L10.6 11.4L6 10L10.6 8.6L12 4Z" fill="%23D95C41"/></svg>',
       search: {
         provider: "local"
       },
@@ -118,15 +121,9 @@ export default withMermaid(
             { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/en/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
           ],
           sidebar: {
-            '/en/projects/': [
-              { text: "Projects", items: enProjectItems }
-            ],
-            '/en/resources/': [
-              { text: "Resource Library", items: enResourceItems }
-            ],
-            '/en/': [
-              { text: "Lectures", items: enLectureItems }
-            ]
+            '/en/projects/': { base: '/en/projects/', items: enProjectItems },
+            '/en/resources/': { base: '/en/resources/', items: enResourceItems },
+            '/en/': { base: '/en/', items: enLectureItems }
           },
           socialLinks: [{ icon: "github", link: "https://github.com/walkinglabs/learn-harness-engineering" }]
         }
@@ -142,17 +139,11 @@ export default withMermaid(
             { text: "资料库", link: "/zh/resources/", activeMatch: '^/zh/resources/' },
             { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/zh/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
           ],
-        sidebar: {
-          '/zh/projects/': [
-            { text: "项目", items: zhProjectItems }
-          ],
-          '/zh/resources/': [
-            { text: "资料库", items: zhResourceItems }
-          ],
-          '/zh/': [
-            { text: "讲义", items: zhLectureItems }
-          ]
-        },
+          sidebar: {
+            '/zh/projects/': { base: '/zh/projects/', items: zhProjectItems },
+            '/zh/resources/': { base: '/zh/resources/', items: zhResourceItems },
+            '/zh/': { base: '/zh/', items: zhLectureItems }
+          },
         outline: {
           level: [2, 3]
         },
