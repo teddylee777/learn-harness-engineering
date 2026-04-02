@@ -391,7 +391,16 @@
   background: var(--vp-c-brand-1);
 }
 
-/* ---------- Back-to-top button ---------- */
+/* ---------- Mermaid Charts styling overrides ---------- */
+.mermaid {
+  background-color: var(--vp-c-bg-elv);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+}
 .VPDoc .back-to-top-btn {
   border-radius: 50%;
 }
@@ -399,4 +408,83 @@
 /* ---------- Page transition smoothness ---------- */
 .VPContent {
   transition: background-color 0.3s;
+}
+
+/* ---------- Card components for Index pages ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.card {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 20px;
+  background-color: var(--vp-c-bg-elv);
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.dark .card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  margin: 0 0 8px 0 !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--vp-c-text-1);
+}
+
+.card p {
+  margin: 0 !important;
+  font-size: 0.95rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.5;
+}
+
+/* List styling for index pages */
+.index-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 16px 0 !important;
+}
+
+.index-list li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 12px !important;
+  color: var(--vp-c-text-2);
+  line-height: 1.6;
+}
+
+.index-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--vp-c-brand-1);
+}
+
+.index-list strong {
+  color: var(--vp-c-text-1);
+}
+
+.index-list a {
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
