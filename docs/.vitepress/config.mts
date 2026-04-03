@@ -39,6 +39,10 @@ const zhResourceItems = [
   { text: "高级资源包", link: "/zh/resources/openai-advanced/" }
 ];
 
+const zhSkillItems = [
+  { text: "技能总览", link: "/zh/skills/" }
+];
+
 const enLectureItems = [
   { text: "Welcome", link: "/en/" },
   { text: "Why Capable Agents Still Fail", link: "/en/lectures/lecture-01-why-capable-agents-still-fail/" },
@@ -70,6 +74,10 @@ const enResourceItems = [
   { text: "English Templates", link: "/en/resources/templates/" },
   { text: "English Reference", link: "/en/resources/reference/" },
   { text: "Advanced Pack", link: "/en/resources/openai-advanced/" }
+];
+
+const enSkillItems = [
+  { text: "Skills Overview", link: "/en/skills/" }
 ];
 
 export default withMermaid(
@@ -128,11 +136,13 @@ export default withMermaid(
             { text: "Lectures", link: enLectureItems[1].link, activeMatch: '^/en/(lectures/.*)?$' },
             { text: "Projects", link: enProjectItems[0].link, activeMatch: '^/en/projects/' },
             { text: "Library", link: "/en/resources/", activeMatch: '^/en/resources/' },
+            { text: "Skills", link: "/en/skills/", activeMatch: '^/en/skills/' },
             { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/en/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
           ],
           sidebar: {
             '/en/projects/': [{ text: "Projects", items: enProjectItems }],
             '/en/resources/': [{ text: "Resource Library", items: enResourceItems }],
+            '/en/skills/': [{ text: "Skills", items: enSkillItems }],
             '/en/': [{ text: "Lectures", items: enLectureItems }]
           },
           socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
@@ -147,11 +157,13 @@ export default withMermaid(
             { text: "讲义", link: zhLectureItems[1].link, activeMatch: '^/zh/(lectures/.*)?$' },
             { text: "项目", link: zhProjectItems[0].link, activeMatch: '^/zh/projects/' },
             { text: "资料库", link: "/zh/resources/", activeMatch: '^/zh/resources/' },
+            { text: "技能", link: "/zh/skills/", activeMatch: '^/zh/skills/' },
             { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/zh/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
           ],
           sidebar: {
             '/zh/projects/': [{ text: "项目", items: zhProjectItems }],
             '/zh/resources/': [{ text: "资料库", items: zhResourceItems }],
+            '/zh/skills/': [{ text: "技能", items: zhSkillItems }],
             '/zh/': [{ text: "讲义", items: zhLectureItems }]
           },
           outline: {

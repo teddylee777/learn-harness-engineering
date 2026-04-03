@@ -8,7 +8,7 @@ Production harness engineering skill for AI coding agents, distilled from Learn 
 npx skills add github:harness-creator
 ```
 
-Or manually copy the `.opencode/skills/harness-creator/` directory to your skill path.
+Or manually copy the `skills/harness-creator/` directory to your skill path.
 
 ## What This Skill Does
 

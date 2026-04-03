@@ -11,6 +11,8 @@ Learn Harness Engineering is a course dedicated to the engineering of AI coding 
 
 [**Website & Docs (English & 中文)**](https://walkinglabs.github.io/learn-harness-engineering/) | [**中文 README**](./README-CN.md)
 
+> **Quick start?** The [`skills/harness-creator/`](./skills/) skill can help you scaffold a production-grade harness (AGENTS.md, feature lists, init.sh, verification workflows) for your own project in minutes.
+
 ---
 
 ## Visual Preview
@@ -489,6 +491,8 @@ learn-harness-engineering/
 ├── projects/
 │   ├── shared/                    # Shared Electron + TypeScript + React foundation
 │   └── project-NN/               # Per-project starter/ and solution/ directories
+├── skills/                        # Reusable AI agent skills
+│   └── harness-creator/           # Harness engineering skill
 ├── package.json                   # VitePress + dev tooling
 └── CLAUDE.md                      # Claude Code instructions for this repo
 ```
