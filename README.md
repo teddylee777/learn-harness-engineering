@@ -9,7 +9,7 @@ Learn Harness Engineering is a course dedicated to the engineering of AI coding 
 - [Anthropic: Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps)
 - [Awesome Harness Engineering](https://github.com/walkinglabs/awesome-harness-engineering)
 
-[**Website & Docs (English & 中文)**](https://walkinglabs.github.io/learn-harness-engineering/) | [**中文 README**](./README-CN.md)
+[**Website & Docs (English & 中文 & Русский & Tiếng Việt)**](https://walkinglabs.github.io/learn-harness-engineering/) | [**中文 README**](./README-CN.md)
 
 > **Quick start?** The [`skills/harness-creator/`](./skills/) skill can help you scaffold a production-grade harness (AGENTS.md, feature lists, init.sh, verification workflows) for your own project in minutes.
 
@@ -341,6 +341,8 @@ Each phase takes about a week if you're going part-time. If you want to go faste
 
 - [English Resource Library](https://walkinglabs.github.io/learn-harness-engineering/en/resources/) — templates, checklists, and method references
 - [Chinese Resource Library](https://walkinglabs.github.io/learn-harness-engineering/zh/resources/) — 中文模板、清单和方法参考
+- [Russian Resource Library](https://walkinglabs.github.io/learn-harness-engineering/ru/resources/) — шаблоны, чек-листы и справочники
+- [Vietnamese Resource Library](https://walkinglabs.github.io/learn-harness-engineering/vi/resources/) — mẫu, danh sách kiểm tra và tài liệu tham khảo
 
 ---
 
@@ -488,9 +490,11 @@ learn-harness-engineering/
 │   ├── projects/                  # 6 project descriptions
 │   │   ├── project-01-*/
 │   │   └── ... (6 total)
-│   └── resources/                 # Bilingual templates & references
+│   └── resources/                 # Multilingual templates & references
 │       ├── en/                    # English templates, checklists, guides
-│       └── zh/                    # Chinese templates, checklists, guides
+│       ├── zh/                    # Chinese templates, checklists, guides
+│       ├── ru/                    # Russian templates, checklists, guides
+│       └── vi/                    # Vietnamese templates, checklists, guides
 ├── projects/
 │   ├── shared/                    # Shared Electron + TypeScript + React foundation
 │   └── project-NN/               # Per-project starter/ and solution/ directories
