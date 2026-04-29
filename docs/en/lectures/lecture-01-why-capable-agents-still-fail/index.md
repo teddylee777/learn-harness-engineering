@@ -35,7 +35,7 @@ Even more common: there's simply no way to verify. No tests, no lint, or verific
 
 Long tasks spanning sessions are even worse — all discoveries from the previous session are lost, and every new session has to re-explore the project structure and re-understand the code organization. Agents without persistent state see failure rates spike sharply on tasks exceeding 30 minutes.
 
-## Core Concepts
+## Key Terminology
 
 With these scenarios in mind, these concepts are no longer just jargon:
 
@@ -52,7 +52,7 @@ Core principle: **When things fail, don't swap the model first — check the har
 
 Concrete steps:
 
-**Attribute every failure to a specific layer.** Don't just say "the model sucks." Ask: was the task unclear? Was context insufficient? Were there no verification methods? Map each failure to one of the five layers above. Build this habit, and you'll find "the model isn't good enough" appearing less and less in your logs.
+**Attribute every failure to a specific layer.** Don't just say "the model sucks." Ask: was the task unclear? Was context insufficient? Were there no verification methods? Map each failure to one of the five failure layers (task specification, context provision, execution environment, verification feedback, state management). Build this habit, and you'll find "the model isn't good enough" appearing less and less in your logs.
 
 **Write an explicit Definition of Done for every task.** Don't say "add a search feature." Say:
 ```
